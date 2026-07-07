@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="BoPeePs Details and More logo 706-897-6177">
+  <defs>
+    <linearGradient id="red" x1="0" x2="1"><stop stop-color="#7b0000"/><stop offset=".45" stop-color="#f21b24"/><stop offset="1" stop-color="#8a0000"/></linearGradient>
+    <linearGradient id="chrome" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#fff"/><stop offset=".45" stop-color="#d9d9d9"/><stop offset="1" stop-color="#777"/></linearGradient>
+    <filter id="glow"><feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#d71920" flood-opacity=".65"/></filter>
+    <filter id="shadow"><feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity=".9"/></filter>
+  </defs>
+  <rect width="1200" height="800" fill="#030303"/>
+  <path d="M221 162 598 89l383 73 52 431-432 105-429-105z" fill="#070707" stroke="url(#red)" stroke-width="9" filter="url(#glow)"/>
+  <path d="M265 188 598 126l337 62 37 368-371 87-369-87z" fill="none" stroke="url(#chrome)" stroke-width="8"/>
+  <path d="M258 312c84-78 191-112 315-100 96 9 178 42 256 101-130-34-274-41-425-14-60 11-110 17-146 13z" fill="none" stroke="url(#chrome)" stroke-width="13" stroke-linecap="round"/>
+  <path d="M358 292c57-64 163-88 278-59 56 14 104 38 148 72" fill="none" stroke="#fff" stroke-width="6" opacity=".85"/>
+  <g fill="#fff"><path d="M165 252 181 289 219 305 181 321 165 359 149 321 111 305 149 289z"/><path d="M885 199 897 226 924 238 897 250 885 277 873 250 846 238 873 226z"/><path d="M966 513 978 540 1005 552 978 564 966 591 954 564 927 552 954 540z"/></g>
+  <text x="600" y="457" text-anchor="middle" font-family="Brush Script MT, Segoe Script, cursive" font-size="190" font-weight="700" fill="url(#chrome)" stroke="#111" stroke-width="9" filter="url(#shadow)">BoPeePs</text>
+  <text x="600" y="555" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="91" letter-spacing="18" fill="url(#red)">DETAILS</text>
+  <text x="600" y="637" text-anchor="middle" font-family="Brush Script MT, Segoe Script, cursive" font-size="78" fill="#fff">and More</text>
+  <path d="M225 625h170M805 625h170" stroke="url(#chrome)" stroke-width="6" stroke-linecap="round"/>
+  <text x="600" y="757" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="78" letter-spacing="12" fill="url(#red)">706-897-6177</text>
+</svg>
