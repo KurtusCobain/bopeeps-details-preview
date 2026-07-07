@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1250" role="img" aria-label="BoPeePs detailing poster 706-897-6177">
+  <defs><linearGradient id="r" x1="0" x2="1"><stop stop-color="#6b0000"/><stop offset=".55" stop-color="#f11b24"/><stop offset="1" stop-color="#680000"/></linearGradient><radialGradient id="bg" cx="50%" cy="25%" r="75%"><stop stop-color="#242424"/><stop offset=".48" stop-color="#050505"/><stop offset="1" stop-color="#000"/></radialGradient><filter id="sh"><feDropShadow dx="0" dy="9" stdDeviation="7" flood-color="#000" flood-opacity=".9"/></filter></defs>
+  <rect width="1000" height="1250" fill="url(#bg)"/>
+  <path d="M120 85h760l45 290-425 91-425-91z" fill="#050505" stroke="url(#r)" stroke-width="7"/>
+  <path d="M240 174c76-54 168-75 276-62 98 12 178 48 238 98-109-25-215-32-317-17-76 11-141 5-197-19z" fill="none" stroke="#eee" stroke-width="9"/>
+  <text x="500" y="285" text-anchor="middle" font-family="Brush Script MT, Segoe Script, cursive" font-size="116" fill="#f2f2f2" stroke="#111" stroke-width="6">BoPeePs</text>
+  <text x="500" y="365" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="62" letter-spacing="12" fill="url(#r)">DETAILS</text>
+  <text x="500" y="427" text-anchor="middle" font-family="Brush Script MT, Segoe Script, cursive" font-size="58" fill="#fff">and More</text>
+  <g opacity=".85" stroke="#fff" stroke-width="13" fill="none"><path d="M102 665c88-111 213-162 373-146 148 15 271 86 368 204-181-62-337-72-469-30-122 38-213 29-272-28z"/><circle cx="323" cy="852" r="72"/><circle cx="706" cy="851" r="72"/></g>
+  <text x="500" y="751" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="55" fill="#fff">PROFESSIONAL DETAILING</text>
+  <text x="500" y="818" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="49" fill="#fff">THAT MAKES THE DIFFERENCE</text>
+  <g transform="translate(70 900)" font-family="Arial Black, Impact, sans-serif" fill="#fff" font-size="28" text-anchor="middle">
+    <g><circle cx="90" cy="60" r="52" fill="#090909" stroke="url(#r)" stroke-width="4"/><path d="M52 63h76" stroke="#fff" stroke-width="9" stroke-linecap="round"/><text x="90" y="140">EXTERIOR</text><text x="90" y="173">DETAILING</text></g>
+    <g transform="translate(250 0)"><circle cx="90" cy="60" r="52" fill="#090909" stroke="url(#r)" stroke-width="4"/><path d="M75 34h38v70H68z" fill="none" stroke="#fff" stroke-width="7"/><text x="90" y="140">INTERIOR</text><text x="90" y="173">DETAILING</text></g>
+    <g transform="translate(500 0)"><circle cx="90" cy="60" r="52" fill="#090909" stroke="url(#r)" stroke-width="4"/><path d="M90 25l42 18v34c0 31-18 49-42 62-24-13-42-31-42-62V43z" fill="none" stroke="#fff" stroke-width="7"/><text x="90" y="140">CERAMIC</text><text x="90" y="173">COATINGS</text></g>
+    <g transform="translate(750 0)"><circle cx="90" cy="60" r="52" fill="#090909" stroke="url(#r)" stroke-width="4"/><path d="M90 22l16 38 38 16-38 16-16 38-16-38-38-16 38-16z" fill="#fff"/><text x="90" y="140">AND MORE!</text></g>
+  </g>
+  <rect x="0" y="1115" width="1000" height="80" fill="url(#r)" opacity=".9"/>
+  <text x="500" y="1176" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="66" letter-spacing="8" fill="#fff">706-897-6177</text>
+  <text x="500" y="1230" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" fill="#fff">bopeepsdetail@gmail.com</text>
+</svg>
