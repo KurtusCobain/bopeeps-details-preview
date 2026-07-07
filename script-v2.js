@@ -2,10 +2,13 @@ const header = document.querySelector('[data-header]');
 const menuToggle = document.querySelector('[data-menu-toggle]');
 const siteNav = document.querySelector('[data-site-nav]');
 const quoteForm = document.querySelector('[data-quote-form]');
+const emailQuoteButton = document.querySelector('[data-email-quote]');
 const formOutput = document.querySelector('[data-form-output]');
 const serviceSelect = document.querySelector('[data-service-select]');
 const yearEl = document.querySelector('[data-year]');
 const businessPhone = '+17068976177';
+const businessPhoneDisplay = '706-897-6177';
+const businessEmail = 'bopeepsdetail@gmail.com';
 
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
@@ -58,8 +61,8 @@ document.querySelectorAll('[data-service-request]').forEach((link) => {
   });
 });
 
-function encodeSmsBody(data) {
-  const lines = [
+function getQuoteLines(data) {
+  return [
     'Hi BoPeePs, I would like a detailing quote.',
     `Name: ${data.get('name') || ''}`,
     `My phone: ${data.get('customerPhone') || ''}`,
@@ -68,26 +71,48 @@ function encodeSmsBody(data) {
     `Preferred day/time: ${data.get('preferredTime') || 'Flexible'}`,
     `Notes: ${data.get('notes') || 'No extra notes yet.'}`
   ];
-  return encodeURIComponent(lines.join('\n'));
+}
+
+function validateQuoteForm() {
+  if (!quoteForm) return false;
+  if (!quoteForm.checkValidity()) {
+    quoteForm.reportValidity();
+    return false;
+  }
+  return true;
 }
 
 if (quoteForm) {
   quoteForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    if (!quoteForm.checkValidity()) {
-      quoteForm.reportValidity();
-      return;
-    }
+    if (!validateQuoteForm()) return;
 
     const data = new FormData(quoteForm);
-    const body = encodeSmsBody(data);
+    const body = encodeURIComponent(getQuoteLines(data).join('\n'));
     const smsLink = `sms:${businessPhone}?body=${body}`;
 
     if (formOutput) {
-      formOutput.textContent = 'Opening your text app. If it does not open, call 706-897-6177 or email bopeepsdetail@gmail.com.';
+      formOutput.textContent = `Opening your text app. If it does not open, call ${businessPhoneDisplay} or email ${businessEmail}.`;
     }
 
     window.location.href = smsLink;
+  });
+}
+
+if (emailQuoteButton && quoteForm) {
+  emailQuoteButton.addEventListener('click', () => {
+    if (!validateQuoteForm()) return;
+
+    const data = new FormData(quoteForm);
+    const subject = encodeURIComponent('Detailing Quote Request');
+    const body = encodeURIComponent(getQuoteLines(data).join('\n'));
+    const emailLink = `mailto:${businessEmail}?subject=${subject}&body=${body}`;
+
+    if (formOutput) {
+      formOutput.textContent = `Opening your email app. If it does not open, email ${businessEmail} or call ${businessPhoneDisplay}.`;
+    }
+
+    window.location.href = emailLink;
   });
 }
