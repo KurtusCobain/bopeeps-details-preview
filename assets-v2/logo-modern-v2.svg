@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="BoPeePs modern logo 706-897-6177">
+  <defs><linearGradient id="r" x1="0" x2="1"><stop stop-color="#7a0000"/><stop offset=".55" stop-color="#e51b23"/><stop offset="1" stop-color="#790000"/></linearGradient><linearGradient id="w" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#fff"/><stop offset=".55" stop-color="#dcdcdc"/><stop offset="1" stop-color="#888"/></linearGradient><filter id="g"><feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#d71920" flood-opacity=".45"/></filter></defs>
+  <rect width="1200" height="800" fill="#030303"/>
+  <path d="M196 277c135-82 282-116 438-103 137 12 258 55 363 129-159-46-310-62-460-49-150 13-260 36-341 23z" fill="none" stroke="url(#w)" stroke-width="12" stroke-linecap="round"/>
+  <path d="M361 257c62-61 156-81 284-51 88 20 153 56 205 103" fill="none" stroke="#fff" stroke-width="5" opacity=".7"/>
+  <g filter="url(#g)">
+    <text x="600" y="410" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="146" font-style="italic" letter-spacing="-7"><tspan fill="url(#w)">BO</tspan><tspan fill="url(#r)">PEEPS</tspan></text>
+    <text x="600" y="535" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="92" font-style="italic" letter-spacing="34" fill="url(#r)">DETAILS</text>
+    <text x="600" y="646" text-anchor="middle" font-family="Brush Script MT, Segoe Script, cursive" font-size="86" fill="#fff">and More</text>
+    <text x="600" y="744" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="72" letter-spacing="14" fill="url(#r)">706-897-6177</text>
+  </g>
+  <path d="M105 507h210M885 507h210M210 623h190M800 623h190" stroke="url(#w)" stroke-width="7" stroke-linecap="round"/>
+  <g fill="#fff"><path d="M161 251l13 30 30 13-30 13-13 30-13-30-30-13 30-13z"/><path d="M1056 282l10 24 24 10-24 10-10 24-10-24-24-10 24-10z"/></g>
+</svg>
