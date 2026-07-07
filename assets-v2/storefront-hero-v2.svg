@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="BoPeePs storefront hero with 706-897-6177">
+  <defs><linearGradient id="sky" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#1382e6"/><stop offset="1" stop-color="#a9d7ff"/></linearGradient><linearGradient id="r" x1="0" x2="1"><stop stop-color="#730000"/><stop offset=".5" stop-color="#e51b23"/><stop offset="1" stop-color="#690000"/></linearGradient><filter id="sh"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000" flood-opacity=".45"/></filter></defs>
+  <rect width="1200" height="900" fill="url(#sky)"/>
+  <g fill="#fff" opacity=".85"><ellipse cx="102" cy="130" rx="70" ry="26"/><ellipse cx="154" cy="122" rx="48" ry="22"/><ellipse cx="958" cy="92" rx="77" ry="28"/><ellipse cx="1023" cy="86" rx="52" ry="24"/></g>
+  <path d="M0 348c188-88 302-91 493-52 205 42 368-48 707 44v160H0z" fill="#315925"/>
+  <g stroke="#1f431e" stroke-width="13" stroke-linecap="round"><path d="M156 341V132"/><path d="M199 344V87"/><path d="M236 354V149"/><path d="M835 342V140"/><path d="M880 350V118"/></g>
+  <g stroke="#2d6f25" stroke-width="26" stroke-linecap="round"><path d="M144 196c45-43 73-43 111 4"/><path d="M172 113c33-29 59-28 83 2"/><path d="M814 187c60-45 98-42 125 4"/></g>
+  <rect x="110" y="456" width="980" height="246" fill="#efefef" stroke="#ccc" stroke-width="4"/>
+  <rect x="94" y="434" width="1012" height="50" fill="#e6e6e6" stroke="#c7c7c7"/>
+  <rect x="118" y="392" width="964" height="94" fill="#050505" stroke="#e5e5e5" stroke-width="4" filter="url(#sh)"/>
+  <text x="600" y="450" text-anchor="middle" font-family="Brush Script MT, Segoe Script, cursive" font-size="58" fill="#fff">BoPeePs Details and More</text>
+  <text x="600" y="480" text-anchor="middle" font-family="Arial Black, Impact, sans-serif" font-size="42" fill="url(#r)">706-897-6177</text>
+  <path d="M175 430c28-20 61-28 98-18 27 7 51 21 72 42-44-10-83-12-118-6-29 5-46-2-52-18z" fill="none" stroke="#9ed5ff" stroke-width="8"/>
+  <path d="M880 430c28-20 61-28 98-18 27 7 51 21 72 42-44-10-83-12-118-6-29 5-46-2-52-18z" fill="none" stroke="#e51b23" stroke-width="8"/>
+  <g stroke="#c01b22" stroke-width="8"><path d="M255 484v218"/><path d="M438 484v218"/><path d="M762 484v218"/><path d="M946 484v218"/></g>
+  <rect x="485" y="520" width="120" height="180" fill="#1e2930" stroke="#999"/><rect x="605" y="520" width="120" height="180" fill="#1e2930" stroke="#999"/><path d="M605 520v180" stroke="#999"/>
+  <rect x="160" y="510" width="140" height="182" fill="#232323"/><rect x="824" y="545" width="125" height="120" fill="#2d3b43" stroke="#888"/>
+  <path d="M760 650h135c54 0 86 28 95 74H718c10-40 23-63 42-74z" fill="#c7b9a4" stroke="#5f5143" stroke-width="4"/><circle cx="765" cy="724" r="34" fill="#222"/><circle cx="942" cy="724" r="34" fill="#222"/>
+  <rect y="700" width="1200" height="200" fill="#908b7c"/><path d="M0 759c235-34 404-27 622 8 212 34 365 17 578-24v157H0z" fill="#777164" opacity=".7"/>
+  <path d="M0 358h1200" stroke="#333" stroke-width="3" opacity=".45"/><path d="M0 388h1200" stroke="#333" stroke-width="2" opacity=".35"/>
+</svg>
