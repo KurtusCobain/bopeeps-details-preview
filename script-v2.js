@@ -68,7 +68,6 @@ function getQuoteLines(data) {
     `My phone: ${data.get('customerPhone') || ''}`,
     `Vehicle: ${data.get('vehicle') || ''}`,
     `Service: ${data.get('service') || ''}`,
-    `Preferred day/time: ${data.get('preferredTime') || 'Flexible'}`,
     `Notes: ${data.get('notes') || 'No extra notes yet.'}`
   ];
 }
