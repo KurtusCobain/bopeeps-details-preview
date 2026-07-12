@@ -1,4 +1,5 @@
 const pricingStyles=document.createElement('link');pricingStyles.rel='stylesheet';pricingStyles.href='packages-update.css';document.head.appendChild(pricingStyles);
+const mobileStyles=document.createElement('link');mobileStyles.rel='stylesheet';mobileStyles.href='mobile.css';document.head.appendChild(mobileStyles);
 
 const state={vehicle:'Small Car',service:'Jacky Jones Special Package',condition:'Moderate'};
 
@@ -172,19 +173,33 @@ const header=document.querySelector('[data-header]');
 const menuButton=document.querySelector('[data-menu-button]');
 const nav=document.querySelector('[data-nav]');
 function setHeader(){header?.classList.toggle('scrolled',window.scrollY>12)}
+function closeMenu(){
+  nav?.classList.remove('is-open');
+  menuButton?.setAttribute('aria-expanded','false');
+  header?.classList.remove('open');
+}
 setHeader();
 window.addEventListener('scroll',setHeader,{passive:true});
 menuButton?.addEventListener('click',()=>{
   const open=nav.classList.toggle('is-open');
   menuButton.setAttribute('aria-expanded',String(open));
+  menuButton.setAttribute('aria-label',open?'Close menu':'Open menu');
   header.classList.toggle('open',open);
 });
 nav?.addEventListener('click',event=>{
-  if(event.target.matches('a')){
-    nav.classList.remove('is-open');
-    menuButton.setAttribute('aria-expanded','false');
-    header.classList.remove('open');
+  if(event.target.matches('a'))closeMenu();
+});
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape'){
+    closeMenu();
+    menuButton?.focus();
   }
+});
+document.addEventListener('click',event=>{
+  if(nav?.classList.contains('is-open')&&!header?.contains(event.target))closeMenu();
+});
+window.addEventListener('resize',()=>{
+  if(window.innerWidth>1020)closeMenu();
 });
 
 syncSummary();
