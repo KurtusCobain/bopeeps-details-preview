@@ -1,3 +1,4 @@
+const pricingStyles=document.createElement('link');pricingStyles.rel='stylesheet';pricingStyles.href='packages-update.css';document.head.appendChild(pricingStyles);
 const state={vehicle:'Small Car',service:'Jacky Jones Special Package',condition:'Moderate'};
 const serviceContent={
   detail:{kicker:'Refresh. Clean. Renew.',title:'Bring back a clean, comfortable vehicle.',description:'From a vacuum, wash, and wax to a complete top-to-bottom detail, choose the level of care your vehicle needs.',items:['Vacuum & Wash/Wax','Deluxe Package','Jacky Jones Special Package','Large and specialty vehicles'],image:'../assets/services-panel.jpg',alt:'Detailed black performance vehicle',choice:'Jacky Jones Special Package'},
