@@ -10,5 +10,9 @@
 .phone-list{display:grid;gap:.35rem;margin:.7rem 0 1rem}
 .phone-list a{font-size:1.15rem;font-weight:900;color:#fff}
 .vehicle-grid{grid-template-columns:repeat(7,1fr)}
+.quote-summary .estimate-row dd{color:var(--red2);font-size:1.15rem;font-weight:950}
+.estimate-note{margin:.3rem 0 1rem;color:var(--muted);font-size:.82rem;line-height:1.45}
+.form-actions{flex-wrap:wrap}
+.form-actions .button{min-width:145px}
 @media(max-width:1120px){.vehicle-grid{grid-template-columns:repeat(4,1fr)}.current-packages{grid-template-columns:1fr 1fr}.current-packages .package-card:last-child{grid-column:1/-1}}
-@media(max-width:720px){.current-packages{grid-template-columns:1fr}.current-packages .package-card:last-child{grid-column:auto}.package-description{min-height:auto}.tier-prices strong{font-size:1.4rem}}
+@media(max-width:720px){.current-packages{grid-template-columns:1fr}.current-packages .package-card:last-child{grid-column:auto}.package-description{min-height:auto}.tier-prices strong{font-size:1.4rem}.form-actions{display:grid}.form-actions .button{width:100%}}
