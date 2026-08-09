@@ -154,8 +154,8 @@ class SiteContractTests(unittest.TestCase):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         css = (ROOT / "styles-v3.css").read_text(encoding="utf-8")
         self.assertTrue((ROOT / ".nojekyll").is_file())
-        self.assertIn('href="styles-v3.css"', html)
-        self.assertIn('src="script-v3.js"', html)
+        self.assertIn('href="styles-v3.css?v=20260808"', html)
+        self.assertIn('src="script-v3.js?v=20260808"', html)
         self.assertIn('class="hero-image" src="assets/truck-wrap.jpg"', html)
         self.assertIn("Mon-Sat", html)
         self.assertIn("7:00 AM-5:00 PM", html)
@@ -172,7 +172,7 @@ class SiteContractTests(unittest.TestCase):
             for attr in ("src", "href"):
                 value = node.attrs.get(attr, "")
                 if value and not value.startswith(("http:", "https:", "tel:", "mailto:", "sms:", "#")):
-                    local_refs.add(value)
+                    local_refs.add(value.split("?", 1)[0])
         missing = sorted(ref for ref in local_refs if not (ROOT / ref).exists())
         self.assertEqual(missing, [])
 
