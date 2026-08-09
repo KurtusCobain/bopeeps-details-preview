@@ -127,12 +127,23 @@ class SiteContractTests(unittest.TestCase):
         self.assertEqual(
             sources,
             [
-                "assets-v3/gallery-photo-5.webp",
+                "assets-v3/gallery-exterior-care.webp",
                 "assets-v3/gallery-photo-8.webp",
                 "assets-v3/gallery-photo-14.webp",
                 "assets-v3/gallery-photo-21.webp",
                 "assets-v3/gallery-photo-25.webp",
-                "assets-v3/gallery-photo-28.webp",
+                "assets-v3/gallery-real-local-work.webp",
+            ],
+        )
+        self.assertEqual(
+            [figure.text for figure in gallery.descendants("figure")],
+            [
+                "Exterior care",
+                "Trucks & daily drivers",
+                "Interior attention",
+                "Jeeps & SUVs",
+                "RVs welcome",
+                "Real local work",
             ],
         )
         self.assertTrue(all(image.attrs.get("alt", "").strip() for image in gallery.descendants("img")))
