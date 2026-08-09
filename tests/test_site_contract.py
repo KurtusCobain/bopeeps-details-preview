@@ -82,9 +82,9 @@ class SiteContractTests(unittest.TestCase):
         self.assertEqual(len(cards), 3)
 
         expected = [
-            ("Express Wash And Spray Wax", "$60+", "1 hr", "assets-v3/service-express-photo-8.webp"),
-            ("Deluxe Detail Package", "$85+", "2 hrs", "assets-v3/service-deluxe-photo-3.webp"),
-            ("Jacky Jones Premium Detail", "$150+", "4 hrs", "assets-v3/service-premium-photo-21.webp"),
+            ("Express Wash And Spray Wax", "$60+", "1 hr", "assets-v3/service-wash.webp"),
+            ("Deluxe Detail Package", "$85+", "2 hrs", "assets-v3/service-interior.webp"),
+            ("Jacky Jones Premium Detail", "$150+", "4 hrs", "assets-v3/service-premium.webp"),
         ]
         actual = []
         for card in cards:

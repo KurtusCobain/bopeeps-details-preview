@@ -12,7 +12,7 @@ Replace only the three images at the top of the existing service cards on the `b
 
 ## Asset handling
 
-Convert the three supplied 1536-by-1536 PNG files to optimized WebP files without generating, retouching, or materially altering their artwork. The existing fixed-height service-card crop remains responsible for responsive presentation.
+Convert the three supplied 1254-by-1254 PNG files to optimized WebP files without generating, retouching, upscaling, or materially altering their artwork. The existing fixed-height service-card crop remains responsible for responsive presentation.
 
 ## Markup and accessibility
 
