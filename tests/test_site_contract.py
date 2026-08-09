@@ -103,18 +103,23 @@ class SiteContractTests(unittest.TestCase):
     def test_scrub_selector_exposes_the_four_approved_real_photos(self) -> None:
         choices = [node for node in self.nodes if "data-scrub-choice" in node.attrs]
         self.assertEqual(
-            [(node.attrs["data-scrub-choice"], node.attrs["data-scrub-src"]) for node in choices],
+            [(node.attrs["data-scrub-choice"], node.attrs["data-scrub-src"], node.text) for node in choices],
             [
-                ("rv", "assets-v3/scrub-photo-6.webp"),
-                ("white-truck", "assets-v3/scrub-photo-10.webp"),
-                ("black-truck", "assets-v3/scrub-photo-11.webp"),
-                ("interior", "assets-v3/scrub-photo-15.webp"),
+                ("rvs", "assets-v3/scrub-photo-6.webp", "RV's"),
+                ("trucks", "assets-v3/scrub-photo-10.webp", "Trucks"),
+                ("work-vehicles", "assets-v3/scrub-work-vehicles.webp", "Work Vehicles"),
+                ("interior", "assets-v3/scrub-photo-15.webp", "Interior"),
             ],
+        )
+        self.assertTrue((ROOT / "assets-v3" / "scrub-work-vehicles.webp").is_file())
+        self.assertIn(
+            "Choose a photo, then drag your finger or mouse across it to wipe away the grime. "
+            "This is an interactive demonstration of some of our recent work.",
+            self.tree.text,
         )
         self.assertEqual(sum("data-scrub-canvas" in node.attrs for node in self.nodes), 1)
         self.assertEqual(sum("data-scrub-reset" in node.attrs for node in self.nodes), 1)
         self.assertEqual(sum("data-scrub-reveal" in node.attrs for node in self.nodes), 1)
-        self.assertIn("simulated grime", self.tree.text.lower())
 
     def test_gallery_uses_the_six_approved_real_work_photos(self) -> None:
         gallery = next(node for node in self.nodes if node.has_class("gallery-grid"))
