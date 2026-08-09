@@ -101,7 +101,9 @@ class SiteContractTests(unittest.TestCase):
             self.assertEqual(href, BOOKSY_PROFILE)
 
     def test_hero_uses_the_approved_business_description(self) -> None:
-        hero_text = next(node for node in self.nodes if node.has_class("hero-text"))
+        hero_text_nodes = [node for node in self.nodes if node.has_class("hero-text-full")]
+        self.assertEqual(len(hero_text_nodes), 1)
+        hero_text = hero_text_nodes[0]
         self.assertEqual(
             hero_text.text,
             "We proudly detail cars, SUVs, trucks, big rigs, RVs, PWCs, tandem axle trailers, and more. "
@@ -109,6 +111,50 @@ class SiteContractTests(unittest.TestCase):
             "A clean vehicle is more than just looks, it's pride.",
         )
         self.assertNotIn("Professional interior and exterior detailing", self.tree.text)
+
+    def test_storefront_hero_art_directs_real_desktop_and_mobile_photos(self) -> None:
+        hero = next(node for node in self.nodes if node.has_class("hero"))
+        pictures = [node for node in hero.descendants("picture") if node.has_class("hero-media")]
+        self.assertEqual(len(pictures), 1)
+        picture = pictures[0]
+        source = picture.descendants("source")
+        self.assertEqual(
+            [(node.attrs.get("media"), node.attrs.get("srcset")) for node in source],
+            [("(max-width: 767px)", "assets-v3/hero-storefront-mobile.webp")],
+        )
+
+        image = picture.descendants("img")
+        self.assertEqual(len(image), 1)
+        self.assertEqual(image[0].attrs.get("src"), "assets-v3/hero-storefront-desktop.webp")
+        self.assertEqual(image[0].attrs.get("width"), "1672")
+        self.assertEqual(image[0].attrs.get("height"), "941")
+        self.assertIn("BoPeeps storefront", image[0].attrs.get("alt", ""))
+
+        mobile_summary = next(node for node in hero.descendants() if node.has_class("hero-text-mobile"))
+        self.assertEqual(mobile_summary.text, "Cars, trucks, SUVs, RVs, and work vehicles.")
+        self.assertEqual(mobile_summary.attrs.get("aria-hidden"), "true")
+
+        hero_links = hero.descendants("a")
+        self.assertEqual(
+            [link.attrs.get("href") for link in hero_links],
+            [BOOKSY_PROFILE, "tel:+17068976177"],
+        )
+
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.assertNotIn("storefrontdesktop.png", html)
+        self.assertNotIn("storemobile.png", html)
+        self.assertNotIn("assets/truck-wrap.jpg", html)
+
+    def test_storefront_hero_css_preserves_mobile_stack_and_desktop_overlay(self) -> None:
+        css = (ROOT / "styles-v3.css").read_text(encoding="utf-8")
+        self.assertRegex(css, r"\.hero\s*\{[^}]*grid-template-rows:\s*clamp\(")
+        self.assertRegex(css, r"\.hero-media\s*\{[^}]*grid-row:\s*1")
+        self.assertRegex(css, r"\.hero-content\s*\{[^}]*text-align:\s*center")
+        self.assertRegex(css, r"\.hero-text-full\s*\{[^}]*clip:\s*rect\(0,0,0,0\)")
+        self.assertIn("@media (min-width: 768px)", css)
+        self.assertRegex(css, r"@media \(min-width: 768px\)\s*\{[\s\S]*?\.hero-media\s*\{[^}]*position:\s*absolute")
+        self.assertRegex(css, r"@media \(min-width: 768px\)\s*\{[\s\S]*?\.hero-copy\s*\{[^}]*text-align:\s*left")
+        self.assertRegex(css, r"@media \(min-width: 768px\)\s*\{[\s\S]*?\.hero-text-mobile\s*\{[^}]*display:\s*none")
 
     def test_scrub_selector_exposes_the_four_approved_real_photos(self) -> None:
         choices = [node for node in self.nodes if "data-scrub-choice" in node.attrs]
@@ -181,9 +227,9 @@ class SiteContractTests(unittest.TestCase):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         css = (ROOT / "styles-v3.css").read_text(encoding="utf-8")
         self.assertTrue((ROOT / ".nojekyll").is_file())
-        self.assertIn('href="styles-v3.css?v=20260808c"', html)
+        self.assertIn('href="styles-v3.css?v=20260809"', html)
         self.assertIn('src="script-v3.js?v=20260808"', html)
-        self.assertIn('class="hero-image" src="assets/truck-wrap.jpg"', html)
+        self.assertIn('class="hero-media"', html)
         self.assertIn("Mon-Sat", html)
         self.assertIn("7:00 AM-5:00 PM", html)
         self.assertIn("Sunday", html)
