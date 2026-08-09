@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BoPeePs Auto Detailing | Auto Detailing in Hayesville, NC</title>
-  <meta name="description" content="BoPeePs Auto Detailing offers interior detailing, exterior detailing, paint correction, and ceramic protection in Hayesville, NC. Call or text 706-897-6177 for a quote." />
-  <meta name="theme-color" content="#050505" />
-  <meta property="og:title" content="BoPeePs Auto Detailing" />
-  <meta property="og:description" content="Mobile-friendly auto detailing in Hayesville, NC. Call or text 706-897-6177 for a quote." />
+  <title>BoPeeps Details & More | Auto Detailing in Hayesville, NC</title>
+  <meta name="description" content="BoPeeps Details & More provides professional auto detailing in Hayesville, NC. View services and pricing, see detail work, and book online through Booksy." />
+  <meta name="theme-color" content="#080808" />
+  <meta property="og:title" content="BoPeeps Details & More" />
+  <meta property="og:description" content="Detailing done right in Hayesville, NC. View current services and book online through Booksy." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/storefront-hero.jpg" />
-  <link rel="preload" as="image" href="assets/storefront-hero.jpg" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta property="og:image" content="assets/truck-wrap.jpg" />
+  <link rel="preload" as="image" href="assets/truck-wrap.jpg" />
+  <link rel="stylesheet" href="styles-v3.css" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": ["AutomotiveBusiness", "LocalBusiness"],
-    "name": "BoPeePs Auto Detailing",
+    "name": "BoPeeps Details & More",
     "telephone": "+1-706-897-6177",
-    "email": "bopeepsdetail@gmail.com",
+    "email": "hello@bopeepsdetails.com",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "1516 US-64",
@@ -27,21 +27,28 @@
       "postalCode": "28904",
       "addressCountry": "US"
     },
-    "openingHours": ["Mo-Fr 09:00-17:00", "Sa By appointment"],
-    "areaServed": ["Hayesville NC", "Clay County NC", "Murphy NC", "Hiawassee GA", "Young Harris GA", "Blairsville GA", "Western North Carolina", "North Georgia"],
-    "image": "assets/storefront-hero.jpg",
-    "priceRange": "Starting at $45",
-    "description": "Interior detailing, exterior detailing, paint correction, ceramic protection, wax, sealants, and engine bay cleaning in Hayesville, North Carolina."
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "07:00",
+        "closes": "17:00"
+      }
+    ],
+    "sameAs": ["https://www.facebook.com/people/BoPeeps-Detail/61591634832181/"],
+    "image": "assets/truck-wrap.jpg",
+    "priceRange": "$60+"
   }
   </script>
+  <script defer src="script-v3.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" data-header>
-    <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="BoPeePs Auto Detailing home">
-        <img src="assets/logo-main.jpg" alt="BoPeePs Auto Detailing logo" />
+    <div class="shell header-inner">
+      <a class="brand" href="#top" aria-label="BoPeeps Details & More home">
+        <img src="assets/logo-modern.jpg" alt="BoPeeps Details & More" width="440" height="190" />
       </a>
 
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
@@ -49,232 +56,184 @@
         <span class="sr-only">Open menu</span>
       </button>
 
-      <nav class="site-nav" id="site-nav" data-site-nav>
+      <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-site-nav>
+        <a href="#top">Home</a>
         <a href="#services">Services</a>
-        <a href="#packages">Packages</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#faq">FAQ</a>
+        <a href="#work">Gallery</a>
+        <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </nav>
 
-      <a class="header-call" href="tel:+17068976177">Call 706-897-6177</a>
+      <a class="button button-primary header-book" href="https://booksy.com/en-us/1808686_bopeeps-detail-more_other_26564_hayesville" target="_blank" rel="noopener">Book on Booksy</a>
     </div>
   </header>
 
   <main id="main">
-    <section class="hero" id="top" aria-label="BoPeePs Auto Detailing hero">
-      <picture>
-        <source media="(max-width: 720px)" srcset="assets/storefront-mobile.jpg" />
-        <img src="assets/storefront-hero.jpg" alt="BoPeePs Auto Detailing storefront in Hayesville, North Carolina" class="hero-bg" />
-      </picture>
-      <div class="hero-overlay"></div>
-
-      <div class="container hero-layout">
-        <div class="hero-copy reveal">
-          <h1>Auto Detailing in Hayesville, NC</h1>
-          <p class="hero-lede">Interior, exterior, paint correction, and ceramic protection for cars, trucks, SUVs, and daily drivers.</p>
+    <section class="hero" id="top">
+      <img class="hero-image" src="assets/truck-wrap.jpg" width="1600" height="900" alt="BoPeeps vehicle detailing image" />
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="shell hero-content">
+        <div class="hero-copy">
+          <p class="eyebrow">Auto detailing · Hayesville, NC</p>
+          <h1>Detailing<br><span>Done Right.</span></h1>
+          <p class="hero-tagline">Cleaner. Shinier. Protected.</p>
+          <p class="hero-text">Professional interior and exterior detailing for cars, trucks, SUVs, Jeeps, RVs and more.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="tel:+17068976177">Call 706-897-6177</a>
-            <a class="btn btn-secondary" href="sms:+17068976177?body=Hi%20BoPeePs%2C%20I%27d%20like%20a%20quote%20for%20my%20vehicle.">Text for Quote</a>
-            <a class="btn btn-secondary" href="https://www.google.com/maps/search/?api=1&query=1516%20US-64%2C%20Hayesville%2C%20NC%2028904" target="_blank" rel="noopener">Get Directions</a>
+            <a class="button button-primary" href="https://booksy.com/en-us/1808686_bopeeps-detail-more_other_26564_hayesville" target="_blank" rel="noopener">Book on Booksy</a>
+            <a class="button button-ghost" href="tel:+17068976177">Call 706-897-6177</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Why customers choose BoPeeps">
+      <div class="shell trust-grid">
+        <article><span class="trust-icon" aria-hidden="true">◆</span><div><strong>Quality products</strong><small>Professional-grade tools & care</small></div></article>
+        <article><span class="trust-icon" aria-hidden="true">✦</span><div><strong>Attention to detail</strong><small>Every surface gets a closer look</small></div></article>
+        <article><span class="trust-icon" aria-hidden="true">◷</span><div><strong>Reliable service</strong><small>Clear booking through Booksy</small></div></article>
+        <article><span class="trust-icon" aria-hidden="true">♡</span><div><strong>Customer first</strong><small>Care built around your vehicle</small></div></article>
+      </div>
+    </section>
+
+    <section class="section services-section" id="services">
+      <div class="shell">
+        <div class="section-heading centered">
+          <p class="eyebrow">Current Booksy services</p>
+          <h2>Our detailing services</h2>
+          <p>Pick the level that fits your vehicle, then finish scheduling securely on Booksy.</p>
+        </div>
+
+        <div class="service-scroller" aria-label="Detailing services">
+          <article class="service-card">
+            <img src="assets/poster-detail.jpg" width="1200" height="800" loading="lazy" alt="BoPeeps exterior detailing promotional image" />
+            <div class="service-body">
+              <div class="service-topline"><span class="price">From $60+</span><span class="duration">~1 hr</span></div>
+              <h3>Express Wash And Spray Wax</h3>
+              <p>Interior vacuum, professional hand wash, premium spray wax and finishing touches.</p>
+              <a class="button button-primary button-full" href="https://booksy.com/en-us/1808686_bopeeps-detail-more_other_26564_hayesville" target="_blank" rel="noopener">Book on Booksy</a>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <img src="assets/services-panel.jpg" width="1200" height="900" loading="lazy" alt="BoPeeps interior detailing service image" />
+            <div class="service-body">
+              <div class="service-topline"><span class="price">From $85+</span><span class="duration">~2 hrs</span></div>
+              <h3>Deluxe Detail Package</h3>
+              <p>Everything in the Express plus tire shine, dash and console care, and a more thorough finish.</p>
+              <a class="button button-primary button-full" href="https://booksy.com/en-us/1808686_bopeeps-detail-more_other_26564_hayesville" target="_blank" rel="noopener">Book on Booksy</a>
+            </div>
+          </article>
+
+          <article class="service-card">
+            <img src="assets/truck-wrap.jpg" width="1600" height="900" loading="lazy" alt="BoPeeps truck detailing service image" />
+            <div class="service-body">
+              <div class="service-topline"><span class="price">From $150+</span><span class="duration">~4 hrs</span></div>
+              <h3>Jacky Jones Premium Detail</h3>
+              <p>A complete top-to-bottom detail inside and out for a showroom-ready finish.</p>
+              <a class="button button-primary button-full" href="https://booksy.com/en-us/1808686_bopeeps-detail-more_other_26564_hayesville" target="_blank" rel="noopener">Book on Booksy</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="centered service-footer">
+          <a class="button button-outline" href="https://booksy.com/en-us/1808686_bopeeps-detail-more_other_26564_hayesville" target="_blank" rel="noopener">View all services & pricing on Booksy</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section work-section" id="work">
+      <div class="shell">
+        <div class="section-heading">
+          <p class="eyebrow">BoPeeps finish</p>
+          <h2>Make it shine</h2>
+          <p>Drag your finger or mouse across the photo to wipe away a simulated haze and reveal the finish underneath.</p>
+        </div>
+
+        <div class="work-grid">
+          <article class="reveal-card">
+            <div class="reveal-stage" data-clean-reveal>
+              <img src="assets/truck-wrap.jpg" width="1600" height="900" loading="lazy" alt="BoPeeps vehicle detailing image" />
+              <canvas aria-label="Interactive simulated grime layer. Drag to reveal the vehicle image." data-reveal-canvas></canvas>
+              <div class="shine" aria-hidden="true"></div>
+              <div class="reveal-tip" data-reveal-tip>Swipe to clean</div>
+            </div>
+            <div class="reveal-copy">
+              <div><span class="eyebrow">Interactive finish</span><h3>Give it a quick wipe.</h3></div>
+              <p class="reveal-status" data-reveal-status aria-live="polite">0% revealed</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="gallery-grid" aria-label="BoPeeps shop and detailing images">
+          <figure><img src="assets/storefront-full.jpg" width="1200" height="800" loading="lazy" alt="BoPeeps Details & More storefront in Hayesville" /><figcaption>Local Hayesville shop</figcaption></figure>
+          <figure><img src="assets/services-panel.jpg" width="1200" height="900" loading="lazy" alt="BoPeeps detailing service image" /><figcaption>Interior & exterior care</figcaption></figure>
+          <figure><img src="assets/truck-wrap.jpg" width="1600" height="900" loading="lazy" alt="BoPeeps truck detailing image" /><figcaption>Trucks & daily drivers</figcaption></figure>
+        </div>
+        <div class="centered gallery-footer"><a class="text-link" href="https://www.facebook.com/people/BoPeeps-Detail/61591634832181/" target="_blank" rel="noopener">See more work on Facebook →</a></div>
+      </div>
+    </section>
+
+    <section class="section about-section" id="about">
+      <div class="shell">
+        <div class="section-heading centered">
+          <p class="eyebrow">Why BoPeeps</p>
+          <h2>Simple service. Serious attention.</h2>
+        </div>
+        <div class="benefit-grid">
+          <article><span aria-hidden="true">◎</span><h3>Quality work</h3><p>Careful cleaning and finishing without rushing the details.</p></article>
+          <article><span aria-hidden="true">▰</span><h3>All vehicles</h3><p>Cars, trucks, SUVs, Jeeps, RVs and more are welcome.</p></article>
+          <article><span aria-hidden="true">✦</span><h3>Finish focused</h3><p>Interior and exterior work built around a clean, polished result.</p></article>
+          <article><span aria-hidden="true">⌖</span><h3>Local & trusted</h3><p>Proudly serving Hayesville and nearby mountain communities.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact-section" id="contact">
+      <div class="shell contact-layout">
+        <div class="contact-copy">
+          <p class="eyebrow">Visit or get in touch</p>
+          <h2>Ready for a cleaner ride?</h2>
+          <p class="contact-intro">Book online, call with a question, or stop by the Hayesville shop during business hours.</p>
+
+          <div class="contact-list">
+            <a href="tel:+17068976177"><span aria-hidden="true">☎</span><div><small>Call</small><strong>706-897-6177</strong></div></a>
+            <a href="mailto:hello@bopeepsdetails.com"><span aria-hidden="true">✉</span><div><small>Email</small><strong>hello@bopeepsdetails.com</strong></div></a>
+            <a href="https://www.google.com/maps/search/?api=1&query=1516%20US-64%2C%20Hayesville%2C%20NC%2028904" target="_blank" rel="noopener"><span aria-hidden="true">⌖</span><div><small>Address</small><strong>1516 US-64, Hayesville, NC 28904</strong></div></a>
+          </div>
+
+          <div class="hours-card">
+            <div><span>Mon-Sat</span><strong>7:00 AM-5:00 PM</strong></div>
+            <div><span>Sunday</span><strong>Closed</strong></div>
+          </div>
+
+          <div class="contact-actions">
+            <a class="button button-primary" href="https://booksy.com/en-us/1808686_bopeeps-detail-more_other_26564_hayesville" target="_blank" rel="noopener">Book on Booksy</a>
+            <a class="button button-outline" href="https://www.facebook.com/people/BoPeeps-Detail/61591634832181/" target="_blank" rel="noopener">Facebook</a>
           </div>
         </div>
 
-        <aside class="hero-panel reveal" aria-label="Quick contact details">
-          <img src="assets/logo-round.jpg" alt="BoPeePs Auto Detailing circular logo" />
-          <p class="panel-label">Fast contact</p>
-          <h2>Send photos and get pointed to the right service faster.</h2>
-          <ul class="hero-contact-list">
-            <li>Text photos of the vehicle and any problem areas.</li>
-            <li>Get a clearer recommendation before booking.</li>
-            <li>Choose from interior, exterior, correction, or protection services.</li>
-          </ul>
-          <a class="panel-phone" href="#quote">Start a quote</a>
-        </aside>
-      </div>
-    </section>
-
-    <section class="section quote-section" id="quote">
-      <div class="container quote-grid">
-        <div class="quote-copy quote-summary reveal">
-          <h2>Get a Fast Quote</h2>
-          <ul class="contact-stack">
-            <li><strong>Call</strong><a href="tel:+17068976177">706-897-6177</a></li>
-            <li><strong>Text</strong><a href="sms:+17068976177?body=Hi%20BoPeePs%2C%20I%27d%20like%20a%20quote%20for%20my%20vehicle.">706-897-6177</a></li>
-            <li><strong>Email</strong><a href="mailto:bopeepsdetail@gmail.com">bopeepsdetail@gmail.com</a></li>
-            <li><strong>Visit</strong><span>1516 US-64, Hayesville, NC 28904</span></li>
-            <li><strong>Directions</strong><a href="https://www.google.com/maps/search/?api=1&query=1516%20US-64%2C%20Hayesville%2C%20NC%2028904" target="_blank" rel="noopener">Tap to open in Google Maps</a></li>
-          </ul>
-        </div>
-
-        <form class="quote-form reveal" data-quote-form>
-          <label>Name<input name="name" autocomplete="name" placeholder="Your name" required /></label>
-          <label>Phone<input name="customerPhone" autocomplete="tel" placeholder="Best phone number" required /></label>
-          <label>Vehicle<input name="vehicle" placeholder="Year / make / model" required /></label>
-          <label class="full">Service needed<select name="service" required data-service-select><option value="">What services are you interested in?</option><option>Interior Detail</option><option>Exterior Detail</option><option>Full Detail</option><option>Deep Interior Cleaning</option><option>Paint Correction</option><option>Headlight Restoration</option><option>Engine Bay Cleaning</option><option>Gloss Enhancement</option><option>Wax</option><option>Sealant</option><option>Ceramic Coating Prep</option><option>Maintenance Plan</option><option>Not sure yet</option></select></label>
-          <label class="full">Message<textarea name="notes" rows="5" placeholder="How can we help?" required></textarea></label>
-          <button class="btn btn-primary full" type="submit">Send Message</button>
-          <output class="form-output full" data-form-output></output>
-        </form>
-      </div>
-    </section>
-
-    <section class="section services" id="services">
-      <div class="container">
-        <div class="section-head reveal">
-          <p class="section-kicker">Services</p>
-          <h2>Detail, enhance, and protect your vehicle.</h2>
-          <p>BoPeePs keeps the offer simple so customers can quickly understand the kind of service they need and reach out for a quote.</p>
-        </div>
-
-        <div class="service-category-grid">
-          <article class="service-category-card reveal detail-card">
-            <p class="service-pill">Detail</p>
-            <h3>Deep interior &amp; exterior cleaning for a like-new feel.</h3>
-            <p>Interior Detail, Exterior Detail, Full Detail, and Deep Interior Cleaning.</p>
-            <a href="#quote" data-service-request="Full Detail">Learn More</a>
-          </article>
-
-          <article class="service-category-card reveal enhance-card">
-            <p class="service-pill">Enhance</p>
-            <h3>Paint correction to remove swirls, scratches &amp; haze.</h3>
-            <p>Paint Correction, Headlight Restoration, Engine Bay Cleaning, and Gloss Enhancement.</p>
-            <a href="#quote" data-service-request="Paint Correction">Learn More</a>
-          </article>
-
-          <article class="service-category-card reveal protect-card">
-            <p class="service-pill">Protect</p>
-            <h3>Ceramic coatings that lock in shine &amp; durability.</h3>
-            <p>Wax, Sealant, Ceramic Coating Prep, and Maintenance Plans.</p>
-            <a href="#quote" data-service-request="Ceramic Coating Prep">Learn More</a>
-          </article>
+        <div class="map-card">
+          <iframe title="Map showing BoPeeps Details & More at 1516 US-64 in Hayesville, North Carolina" src="https://www.google.com/maps?q=1516+US-64,+Hayesville,+NC+28904&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          <a class="map-caption" href="https://www.google.com/maps/search/?api=1&query=1516%20US-64%2C%20Hayesville%2C%20NC%2028904" target="_blank" rel="noopener">
+            <span><strong>1516 US-64</strong><small>Hayesville, NC 28904</small></span><b>Directions →</b>
+          </a>
         </div>
       </div>
     </section>
-
-    <section class="section packages" id="packages">
-      <div class="container">
-        <div class="section-head reveal">
-          <p class="section-kicker">Starting Packages</p>
-          <h2>Packages &amp; Starting Prices</h2>
-        </div>
-
-        <div class="package-grid">
-          <article class="package-card reveal"><h3>Maintenance Wash</h3><p class="package-copy">Exterior hand wash, wheel &amp; tire cleaning.</p><p class="package-price-value">$75</p><p class="package-price-label">Starting at</p></article>
-          <article class="package-card reveal"><h3>Full Detail</h3><p class="package-copy">Interior &amp; exterior deep clean.</p><p class="package-price-value">$175</p><p class="package-price-label">Starting at</p></article>
-          <article class="package-card reveal"><h3>Paint Correction</h3><p class="package-copy">Multi-stage correction for a flawless finish.</p><p class="package-price-value">$350</p><p class="package-price-label">Starting at</p></article>
-          <article class="package-card reveal"><h3>Ceramic Protection</h3><p class="package-copy">Professional ceramic coating.</p><p class="package-price-value">$550</p><p class="package-price-label">Starting at</p></article>
-        </div>
-        <div class="packages-cta reveal">
-          <a class="btn btn-secondary packages-button" href="#quote">View All Services &amp; Add-Ons</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section why-section">
-      <div class="container image-split-grid">
-        <div class="promise-panel reveal">
-          <p class="section-kicker">Why Choose BoPeePs</p>
-          <h2>Local, straightforward, and focused on the finish.</h2>
-          <ul class="check-list">
-            <li>Local Hayesville shop that takes pride in every vehicle.</li>
-            <li>Professional results with premium products and tools.</li>
-            <li>Honest recommendations. No upsell, ever.</li>
-            <li>Photo quotes welcome for fast, accurate pricing.</li>
-            <li>By appointment for the best experience.</li>
-            <li>We treat your vehicle like our own.</li>
-          </ul>
-        </div>
-        <div class="why-image reveal">
-          <img src="assets/services-panel.jpg" alt="BoPeePs Auto Detailing performance car detail image" />
-        </div>
-      </div>
-    </section>
-
-    <section class="section gallery" id="gallery">
-      <div class="container">
-        <div class="section-head reveal">
-          <p class="section-kicker">Recent Work</p>
-          <h2>A quick look at the shop and detail work.</h2>
-        </div>
-
-        <div class="gallery-grid">
-          <figure class="gallery-item reveal"><img src="assets/poster-detail.jpg" alt="BoPeePs detailing poster and sports car" /></figure>
-          <figure class="gallery-item reveal"><img src="assets/business-card.jpg" alt="BoPeePs interior branding card art" /></figure>
-          <figure class="gallery-item reveal"><img src="assets/storefront-full.jpg" alt="BoPeePs storefront and sign" /></figure>
-          <figure class="gallery-item reveal"><img src="assets/logo-round.jpg" alt="BoPeePs wheel and detailing logo art" /></figure>
-          <figure class="gallery-item reveal"><img src="assets/social-card.jpg" alt="BoPeePs protective coating promo image" /></figure>
-        </div>
-        <div class="gallery-cta reveal">
-          <a class="btn btn-secondary gallery-button" href="#contact">View More on Facebook</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section faq-section" id="faq">
-      <div class="container">
-        <div class="section-head reveal">
-          <p class="section-kicker">FAQ</p>
-          <h2>Common questions before you book.</h2>
-        </div>
-
-        <div class="faq-grid compact-faq">
-          <article class="faq-card reveal"><h3>Do I need an appointment?</h3><p>Appointments are recommended. Call or text 706-897-6177 to check availability.</p></article>
-          <article class="faq-card reveal"><h3>How long does a detail take?</h3><p>Timing depends on the service and vehicle condition. BoPeePs can give a better estimate once the service is confirmed.</p></article>
-          <article class="faq-card reveal"><h3>Can I text photos for a quote?</h3><p>Yes. Interior, exterior, and paint photos help speed up the quote process.</p></article>
-          <article class="faq-card reveal"><h3>What payment methods do you accept?</h3><p>Ask when booking and BoPeePs can confirm the current payment options for your appointment.</p></article>
-        </div>
-      </div>
-    </section>
-
   </main>
 
-  <footer class="site-footer" id="contact">
-    <div class="container footer-grid">
-      <div class="footer-contact">
-        <img class="footer-logo" src="assets/logo-modern.jpg" alt="BoPeePs Auto Detailing logo" />
-        <p>1516 US-64, Hayesville, NC 28904</p>
-        <a href="tel:+17068976177">Call 706-897-6177</a>
-        <a href="mailto:bopeepsdetail@gmail.com">bopeepsdetail@gmail.com</a>
-        <p>Local shop serving Hayesville and nearby mountain communities.</p>
-      </div>
-      <div class="map-card">
-        <iframe
-          class="map-embed"
-          title="BoPeePs Auto Detailing map"
-          src="https://www.google.com/maps?q=1516+US-64,+Hayesville,+NC+28904&z=15&output=embed"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          allowfullscreen
-        ></iframe>
-        <div class="map-card-top">
-          <strong>1516 US-64</strong>
-          <span>Hayesville, NC 28904</span>
-        </div>
-        <a class="btn btn-secondary map-btn" href="https://www.google.com/maps/search/?api=1&query=1516%20US-64%2C%20Hayesville%2C%20NC%2028904" target="_blank" rel="noopener">Get Directions</a>
-      </div>
-    </div>
-    <div class="container footer-bottom">
-      <p>&copy; <span data-year></span> BoPeePs Auto Detailing. All rights reserved.</p>
-      <p>Auto detailing in Hayesville, NC.</p>
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <img src="assets/logo-modern.jpg" alt="BoPeeps Details & More" width="440" height="190" loading="lazy" />
+      <p>Professional auto detailing in Hayesville, North Carolina.</p>
+      <p class="footer-small">© 2026 BoPeeps Details & More. All rights reserved.</p>
     </div>
   </footer>
 
-  <div class="mobile-cta" aria-label="Quick contact buttons">
-    <a href="tel:+17068976177">
-      <span class="mobile-cta-label">Call</span>
-      <span class="mobile-cta-detail">706-897-6177</span>
-    </a>
-    <a href="sms:+17068976177?body=Hi%20BoPeePs%2C%20I%27d%20like%20a%20quote%20for%20my%20vehicle.">
-      <span class="mobile-cta-label">Text</span>
-      <span class="mobile-cta-detail">Fast quote</span>
-    </a>
-    <a href="https://www.google.com/maps/search/?api=1&query=1516%20US-64%2C%20Hayesville%2C%20NC%2028904" target="_blank" rel="noopener">
-      <span class="mobile-cta-label">Directions</span>
-      <span class="mobile-cta-detail">1516 US-64</span>
-    </a>
-  </div>
-
-  <script src="script-v2.js"></script>
+  <nav class="mobile-actions" aria-label="Quick actions">
+    <a href="tel:+17068976177"><span aria-hidden="true">☎</span>Call</a>
+    <a href="https://www.google.com/maps/search/?api=1&query=1516%20US-64%2C%20Hayesville%2C%20NC%2028904" target="_blank" rel="noopener"><span aria-hidden="true">⌖</span>Directions</a>
+    <a class="mobile-book" href="https://booksy.com/en-us/1808686_bopeeps-detail-more_other_26564_hayesville" target="_blank" rel="noopener"><span aria-hidden="true">▣</span>Book</a>
+  </nav>
 </body>
 </html>
