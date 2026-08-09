@@ -155,7 +155,7 @@ class SiteContractTests(unittest.TestCase):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         css = (ROOT / "styles-v3.css").read_text(encoding="utf-8")
         self.assertTrue((ROOT / ".nojekyll").is_file())
-        self.assertIn('href="styles-v3.css?v=20260808b"', html)
+        self.assertIn('href="styles-v3.css?v=20260808c"', html)
         self.assertIn('src="script-v3.js?v=20260808"', html)
         self.assertIn('class="hero-image" src="assets/truck-wrap.jpg"', html)
         self.assertIn("Mon-Sat", html)
@@ -167,13 +167,18 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn("www.google.com/maps", html)
         self.assertIn("@media (prefers-reduced-motion: reduce)", css)
 
-    def test_service_artwork_uses_contained_fit_without_changing_image_height(self) -> None:
+    def test_service_artwork_fills_fixed_height_frames_without_stretching(self) -> None:
+        frames = [node for node in self.nodes if node.has_class("service-art")]
+        self.assertEqual(len(frames), 3)
+        self.assertTrue(all(len(frame.descendants("img")) == 1 for frame in frames))
+
         css = (ROOT / "styles-v3.css").read_text(encoding="utf-8")
-        rule = re.search(r"\.service-card img\s*\{([^}]*)\}", css)
-        self.assertIsNotNone(rule)
-        declarations = rule.group(1)
-        self.assertRegex(declarations, r"height:\s*210px")
-        self.assertRegex(declarations, r"object-fit:\s*contain")
+        frame_rule = re.search(r"\.service-art\s*\{([^}]*)\}", css)
+        image_rule = re.search(r"\.service-art img\s*\{([^}]*)\}", css)
+        self.assertIsNotNone(frame_rule)
+        self.assertIsNotNone(image_rule)
+        self.assertRegex(frame_rule.group(1), r"height:\s*210px")
+        self.assertRegex(image_rule.group(1), r"object-fit:\s*contain")
 
     def test_all_local_page_assets_resolve(self) -> None:
         local_refs: set[str] = set()

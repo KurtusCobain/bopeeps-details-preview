@@ -12,7 +12,7 @@ Replace only the three images at the top of the existing service cards on the `b
 
 ## Asset handling
 
-Convert the three supplied 1254-by-1254 PNG files to optimized WebP files without generating, retouching, upscaling, or materially altering their artwork. Display each square artwork with `object-fit: contain` inside the existing 210-pixel-high black service image area so the full design remains visible without changing card dimensions.
+Convert the three supplied 1254-by-1254 PNG files to optimized WebP files without generating, retouching, upscaling, or materially altering their artwork. Keep the service image area at 210 pixels high. Fill its width with a darkened, softly blurred copy of the matching artwork, then center a slightly enlarged, unstretched contained copy above it. This removes empty side bars while preserving the important central design and existing card dimensions.
 
 ## Markup and accessibility
 

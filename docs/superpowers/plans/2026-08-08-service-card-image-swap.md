@@ -4,7 +4,7 @@
 
 **Goal:** Replace the three service-card photos with the three approved supplied graphics under simple, meaningful filenames.
 
-**Architecture:** Keep the current static card markup and fixed 210-pixel image area. Convert each 1254-by-1254 source PNG to an optimized WebP in `assets-v3`, update the three service image references, dimensions, alt text, and structural contract, then use a centered contained fit so the square artwork remains visible without changing card dimensions.
+**Architecture:** Keep the current static card markup and fixed 210-pixel image area. Convert each 1254-by-1254 source PNG to an optimized WebP in `assets-v3`, update the three service image references, dimensions, alt text, and structural contract, then use a dark matching backdrop plus a centered contained foreground so the box fills without stretching the artwork or changing card dimensions.
 
 **Tech Stack:** Static HTML, WebP assets generated with Pillow, Python `unittest` contract tests.
 
@@ -14,7 +14,7 @@
 - Do not change service copy, prices, durations, buttons, layout, hero, gallery, scrub images, `main`, Porkbun, or the custom domain.
 - Use `service-wash.webp`, `service-interior.webp`, and `service-premium.webp`.
 - Preserve the supplied artwork without generation or retouching.
-- Keep the service image area at 210 pixels high and use `object-fit: contain` on a black background.
+- Keep the service image area at 210 pixels high, fill its width with a dark matching backdrop, and keep the foreground artwork unstretched with `object-fit: contain`.
 
 ---
 
