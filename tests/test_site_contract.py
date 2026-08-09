@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
@@ -154,7 +155,7 @@ class SiteContractTests(unittest.TestCase):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         css = (ROOT / "styles-v3.css").read_text(encoding="utf-8")
         self.assertTrue((ROOT / ".nojekyll").is_file())
-        self.assertIn('href="styles-v3.css?v=20260808"', html)
+        self.assertIn('href="styles-v3.css?v=20260808b"', html)
         self.assertIn('src="script-v3.js?v=20260808"', html)
         self.assertIn('class="hero-image" src="assets/truck-wrap.jpg"', html)
         self.assertIn("Mon-Sat", html)
@@ -165,6 +166,14 @@ class SiteContractTests(unittest.TestCase):
         self.assertIn('class="mobile-actions"', html)
         self.assertIn("www.google.com/maps", html)
         self.assertIn("@media (prefers-reduced-motion: reduce)", css)
+
+    def test_service_artwork_uses_contained_fit_without_changing_image_height(self) -> None:
+        css = (ROOT / "styles-v3.css").read_text(encoding="utf-8")
+        rule = re.search(r"\.service-card img\s*\{([^}]*)\}", css)
+        self.assertIsNotNone(rule)
+        declarations = rule.group(1)
+        self.assertRegex(declarations, r"height:\s*210px")
+        self.assertRegex(declarations, r"object-fit:\s*contain")
 
     def test_all_local_page_assets_resolve(self) -> None:
         local_refs: set[str] = set()

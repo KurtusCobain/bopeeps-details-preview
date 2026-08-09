@@ -87,7 +87,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .services-section { background: linear-gradient(180deg, #0c0c0d, #070707); }
 .service-scroller { display: grid; grid-auto-flow: column; grid-auto-columns: min(86vw, 345px); gap: 14px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: inline mandatory; padding: 4px 2px 14px; scrollbar-width: thin; scrollbar-color: var(--red) #111; }
 .service-card { scroll-snap-align: start; overflow: hidden; background: linear-gradient(180deg, #151517, #0d0d0e); border: 1px solid rgba(255,255,255,.16); border-radius: 14px; box-shadow: var(--shadow); }
-.service-card img { width: 100%; height: 210px; object-fit: cover; }
+.service-card img { width: 100%; height: 210px; object-fit: contain; background: #050505; }
 .service-body { padding: 18px; }
 .service-topline { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .price { color: #ff353d; font-weight: 900; text-transform: uppercase; }
