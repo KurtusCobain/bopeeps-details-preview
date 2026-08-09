@@ -23,21 +23,25 @@
     });
   }
 
-  const range = document.querySelector('[data-before-after-range]');
-  const afterLayer = document.querySelector('[data-after-layer]');
-  if (range && afterLayer) {
-    const updateComparison = () => {
-      afterLayer.style.width = `${range.value}%`;
-    };
-    range.addEventListener('input', updateComparison);
-    updateComparison();
-  }
+  const widgetHost = document.querySelector('[data-booksy-widget-host]');
+  document.querySelectorAll('[data-booksy-open]').forEach(link => {
+    link.addEventListener('click', event => {
+      const trigger = widgetHost?.querySelector('.booksy-widget-button, button, a');
+      if (!trigger) return;
+      event.preventDefault();
+      trigger.click();
+    });
+  });
 
-  const reveal = document.querySelector('[data-clean-reveal]');
-  const canvas = document.querySelector('[data-reveal-canvas]');
-  const status = document.querySelector('[data-reveal-status]');
+  const stage = document.querySelector('[data-scrub-stage]');
+  const image = document.querySelector('[data-scrub-image]');
+  const canvas = document.querySelector('[data-scrub-canvas]');
+  const status = document.querySelector('[data-scrub-status]');
+  const resetButton = document.querySelector('[data-scrub-reset]');
+  const revealButton = document.querySelector('[data-scrub-reveal]');
+  const choices = [...document.querySelectorAll('[data-scrub-choice]')];
 
-  if (!reveal || !canvas) return;
+  if (!stage || !image || !canvas) return;
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
@@ -61,16 +65,16 @@
     for (let i = 0; i < seedDots; i++) {
       const x = ((Math.sin(i * 12.9898) * 43758.5453 % 1) + 1) % 1 * width;
       const y = ((Math.sin(i * 78.233) * 24634.6345 % 1) + 1) % 1 * height;
-      const r = 2 + ((i * 17) % 12);
+      const radius = 2 + ((i * 17) % 12);
       ctx.fillStyle = i % 4 === 0 ? 'rgba(205,194,164,.18)' : 'rgba(25,23,21,.16)';
       ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
       ctx.fill();
     }
   };
 
-  const scaleCanvas = () => {
-    const rect = reveal.getBoundingClientRect();
+  const resetGrime = () => {
+    const rect = stage.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.max(1, Math.round(rect.width * dpr));
@@ -81,9 +85,28 @@
     paintGrime(rect.width, rect.height);
     visited.clear();
     completed = false;
-    reveal.classList.remove('is-complete', 'is-started');
+    stage.classList.remove('is-complete', 'is-started');
     if (status) status.textContent = '0% revealed';
   };
+
+  const revealAll = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    completed = true;
+    stage.classList.add('is-started', 'is-complete');
+    if (status) status.textContent = '100% revealed';
+  };
+
+  choices.forEach(choice => {
+    choice.addEventListener('click', () => {
+      choices.forEach(item => item.setAttribute('aria-pressed', String(item === choice)));
+      image.src = choice.getAttribute('data-scrub-src');
+      image.alt = choice.getAttribute('data-scrub-alt');
+      resetGrime();
+    });
+  });
+
+  resetButton?.addEventListener('click', resetGrime);
+  revealButton?.addEventListener('click', revealAll);
 
   const pointFromEvent = event => {
     const rect = canvas.getBoundingClientRect();
@@ -103,11 +126,11 @@
 
   const updateProgress = () => {
     const percent = Math.min(100, Math.round((visited.size / (cols * rows)) * 100));
-    if (status) status.textContent = completed ? 'Nice work — ready to book?' : `${percent}% revealed`;
+    if (status) status.textContent = `${percent}% revealed`;
     if (!completed && percent >= 48) {
       completed = true;
-      reveal.classList.add('is-complete');
-      if (status) status.textContent = 'Nice work — ready to book?';
+      stage.classList.add('is-complete');
+      if (status) status.textContent = 'Nice work - ready to book?';
     }
   };
 
@@ -131,7 +154,7 @@
 
   canvas.addEventListener('pointerdown', event => {
     drawing = true;
-    reveal.classList.add('is-started');
+    stage.classList.add('is-started');
     canvas.setPointerCapture(event.pointerId);
     lastPoint = pointFromEvent(event);
     eraseAt(lastPoint);
@@ -158,10 +181,10 @@
   });
 
   if ('ResizeObserver' in window) {
-    const resizeObserver = new ResizeObserver(scaleCanvas);
-    resizeObserver.observe(reveal);
+    const resizeObserver = new ResizeObserver(resetGrime);
+    resizeObserver.observe(stage);
   } else {
-    window.addEventListener('resize', scaleCanvas);
-    scaleCanvas();
+    window.addEventListener('resize', resetGrime);
+    resetGrime();
   }
 })();
