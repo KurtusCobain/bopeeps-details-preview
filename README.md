@@ -1,35 +1,35 @@
-# BoPeePs Details and More Website
+# BoPeeps Details & More
 
-Static one-page auto detailing website built from the provided BoPeePs assets and updated with a modern geometric auto-service layout inspired by the Wix automobile repair template reference.
+This repository contains the mobile-first static detailing website for BoPeeps Details & More in Hayesville, North Carolina.
 
-## Files
+- Phone: 706-897-6177
+- Email: hello@bopeepsdetails.com
+- Booking: [Booksy](https://booksy.com/en-us/1808686_bopeeps-detail-more_other_26564_hayesville)
+- Hosting: GitHub Pages
+- Domain: bopeepsdetails.com after DNS cutover
 
-- `index.html` — main page
-- `styles.css` — full responsive black/red/chrome theme
-- `script.js` — mobile menu, scroll effects, package/service prefill, and SMS quote form
-- `assets/` — images cropped from the provided brand board and storefront photo
+## Production files
 
-## What works now
+- `index.html` contains the page structure, business content, contact links, Booksy widget, gallery, and scrub controls.
+- `styles-v3.css` contains the responsive black-and-red presentation and desktop/mobile hero art direction.
+- `script-v3.js` contains the mobile navigation, Booksy fallback handling, and interactive scrub behavior.
+- `.nojekyll` keeps the static file tree compatible with GitHub Pages.
+- `assets/logo-modern.jpg` is the header logo.
+- `assets-v3/` contains the optimized hero, service, scrub, and gallery images referenced by the production page.
 
-- Call buttons use `tel:+18282673377`
-- Text buttons use `sms:+18282673377`
-- Quote form prepares a text message with customer name, phone, vehicle, selected service, preferred time, and notes
-- Service/package buttons preselect the quote form service
-- Mobile sticky Call/Text buttons
-- Responsive layout for desktop, tablet, and phone
-- Geometric hero, service grid, package cards, gallery, blog-style detail tips, process, and contact sections
-- Local SEO schema starter for an auto detailing business
+## Image maintenance
 
-## Things to customize before publishing
+Keep replacement images optimized for the web and preserve the existing filenames unless the HTML is updated at the same time.
 
-1. Add the exact shop address if you want local SEO/map info.
-2. Add actual package prices or keep them quote-based.
-3. Replace placeholder gallery/brand mockups with real before-and-after photos.
-4. Add links to Facebook, Google Business Profile, and reviews when available.
-5. Add real hours of operation.
-6. Expand the Detail Tips section into real blog posts if you want more SEO content.
-7. If you want email form submissions instead of SMS, connect the form to Netlify Forms, Formspree, Basin, or a small backend.
+- Hero images: replace `hero-storefront-desktop.webp` and `hero-storefront-mobile.webp` together so desktop and mobile retain their intended crops.
+- Service images: replace the three `service-*.webp` files used by the service cards.
+- Scrub images: update each choice's image source and alternative text in `index.html`; the shared controller in `script-v3.js` handles switching and resetting.
+- Gallery images: replace the corresponding `gallery-*.webp` file or update its path and descriptive alternative text in `index.html`.
 
-## Publishing
+Run the production reference checks after every image change so no local link points to a missing asset.
 
-This is a normal static website. You can upload the folder to GitHub Pages, Netlify, Cloudflare Pages, GoDaddy hosting, or any static host.
+## Production workflow
+
+Keep production changes on a review branch, verify the complete static site, and promote them to `main` without force-pushing. GitHub Pages serves the repository root.
+
+Experimental sponge cursors, bubbles, sounds, and other scrub effects belong on `experiment/scrub-effects`, not on production. The production scrub interaction should remain accessible to pointer and keyboard users.
