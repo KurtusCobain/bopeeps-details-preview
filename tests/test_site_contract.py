@@ -100,6 +100,16 @@ class SiteContractTests(unittest.TestCase):
             self.assertEqual(actual_image, image)
             self.assertEqual(href, BOOKSY_PROFILE)
 
+    def test_hero_uses_the_approved_business_description(self) -> None:
+        hero_text = next(node for node in self.nodes if node.has_class("hero-text"))
+        self.assertEqual(
+            hero_text.text,
+            "We proudly detail cars, SUVs, trucks, big rigs, RVs, PWCs, tandem axle trailers, and more. "
+            "If you've got it, we'll make it showroom ready with professional detailing done to your standards. "
+            "A clean vehicle is more than just looks, it's pride.",
+        )
+        self.assertNotIn("Professional interior and exterior detailing", self.tree.text)
+
     def test_scrub_selector_exposes_the_four_approved_real_photos(self) -> None:
         choices = [node for node in self.nodes if "data-scrub-choice" in node.attrs]
         self.assertEqual(
