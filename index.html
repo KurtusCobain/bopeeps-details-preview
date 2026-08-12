@@ -12,6 +12,38 @@
   <meta property="og:image" content="assets-v3/hero-storefront-desktop.webp" />
   <link rel="preload" as="image" href="assets-v3/hero-storefront-desktop.webp" />
   <link rel="stylesheet" href="styles-v3.css?v=20260809b" />
+  <style id="pet-hair-policy-styles">
+    .pricing-notice {
+      display: grid;
+      gap: 12px;
+      margin: 22px auto 0;
+      padding: 16px;
+      max-width: 920px;
+      border: 1px solid rgba(227,27,35,.42);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(227,27,35,.09), rgba(17,17,19,.94) 44%);
+      text-align: left;
+    }
+    .pricing-notice-mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 50%;
+      color: #fff;
+      background: #b80f16;
+      font-weight: 900;
+    }
+    .pricing-notice h3 { margin: 0 0 5px; font-size: .94rem; text-transform: uppercase; letter-spacing: .03em; }
+    .pricing-notice p { margin: 0; color: #c8c8cc; font-size: .88rem; }
+    .pricing-notice strong { color: #fff; }
+    .pricing-notice-link { align-self: center; color: #fff; font-size: .8rem; font-weight: 850; text-decoration: underline; text-underline-offset: 4px; white-space: nowrap; }
+    .pricing-notice-link:hover { color: #ff4a50; }
+    @media (min-width: 768px) {
+      .pricing-notice { grid-template-columns: auto minmax(0,1fr) auto; align-items: center; padding: 16px 18px; }
+    }
+  </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -148,6 +180,15 @@
         <div class="centered service-footer">
           <a class="button button-outline" data-booksy-open href="https://booksy.com/en-us/1808686_bopeeps-detail-more_other_26564_hayesville" target="_blank" rel="noopener">View all services & pricing on Booksy</a>
         </div>
+
+        <aside class="pricing-notice" aria-labelledby="pricing-notice-title">
+          <span class="pricing-notice-mark" aria-hidden="true">!</span>
+          <div>
+            <h3 id="pricing-notice-title">Pricing & Vehicle Condition</h3>
+            <p>Service prices reflect standard vehicle conditions. <strong>Excessive pet hair requiring additional removal time</strong> may incur a <strong>$20 pet hair removal fee</strong>. If applied, the charge will be itemized in your final checkout and reflected on your receipt or payment confirmation email.</p>
+          </div>
+          <a class="pricing-notice-link" href="policies.html">View policies →</a>
+        </aside>
       </div>
     </section>
 
