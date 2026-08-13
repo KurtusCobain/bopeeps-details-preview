@@ -138,13 +138,30 @@ def test_booksy_and_pet_hair_policy_are_preserved():
     assert approved in policies
 
 
-def test_public_pages_use_premium_service_name_without_jacky_jones():
+def test_public_pages_use_signature_service_name_and_current_vehicle_pricing():
     for name in INDEXABLE:
         text = html(name)
         assert 'jacky' not in text.lower(), name
+        assert '>Premium Detail<' not in text, name
 
-    assert 'Premium Detail' in html('index.html')
-    assert 'Premium Detail' in html('services.html')
+    home = html('index.html')
+    services = html('services.html')
+    local_pages = '\n'.join(html(name) for name in LOCAL_PAGES)
+
+    assert 'BoPeeps Signature Detail' in home
+    assert 'BoPeeps Signature Detail' in services
+    assert 'BoPeeps Signature Detail' in local_pages
+
+    for text in [home, services]:
+        for amount in ['$60', '$75', '$90', '$85', '$100', '$120', '$150', '$200', '$250']:
+            assert amount in text
+        assert 'Small cars' in text
+        assert 'SUVs &amp; trucks' in text
+        assert 'Dual/tandem axles' in text
+
+    for duration in ['~1 hr', '~2 hrs', '~4 hrs']:
+        assert duration not in home
+        assert duration not in services
 
 
 def test_homepage_exposes_crawlable_core_and_service_area_links():
