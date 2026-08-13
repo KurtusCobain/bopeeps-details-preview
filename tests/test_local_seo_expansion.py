@@ -138,6 +138,15 @@ def test_booksy_and_pet_hair_policy_are_preserved():
     assert approved in policies
 
 
+def test_public_pages_use_premium_service_name_without_jacky_jones():
+    for name in INDEXABLE:
+        text = html(name)
+        assert 'jacky' not in text.lower(), name
+
+    assert 'Premium Detail' in html('index.html')
+    assert 'Premium Detail' in html('services.html')
+
+
 def test_homepage_exposes_crawlable_core_and_service_area_links():
     home = html('index.html')
     required = [
