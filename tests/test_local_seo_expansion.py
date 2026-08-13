@@ -53,7 +53,6 @@ def test_indexable_routes_have_unique_core_metadata_and_one_h1():
     titles = []
     descriptions = []
     canonicals = []
-
     for name in INDEXABLE:
         text = html(name)
         title = extract(r'<title>(.*?)</title>', text)
@@ -64,7 +63,6 @@ def test_indexable_routes_have_unique_core_metadata_and_one_h1():
         titles.append(title)
         descriptions.append(description)
         canonicals.append(canonical)
-
     assert len(titles) == len(set(titles))
     assert len(descriptions) == len(set(descriptions))
     assert len(canonicals) == len(set(canonicals))
@@ -77,7 +75,6 @@ def test_local_pages_are_truthful_about_one_hayesville_shop():
         'auto-detailing-young-harris-ga.html': 'Young Harris',
         'auto-detailing-blairsville-ga.html': 'Blairsville',
     }
-
     for name in LOCAL_PAGES:
         text = html(name)
         assert SHOP_ADDRESS in text
@@ -87,7 +84,6 @@ def test_local_pages_are_truthful_about_one_hayesville_shop():
         lower = text.lower()
         assert 'mobile detailing available' not in lower
         assert 'we come to you' not in lower
-
     for name, city in surrounding.items():
         text = html(name).lower()
         assert city.lower() in text
@@ -104,8 +100,8 @@ def test_all_local_schema_keeps_hayesville_as_the_only_street_location():
     ]
     for name in LOCAL_PAGES:
         text = html(name)
-        assert '"streetAddress": "1516 US-64"' in text
-        assert '"addressLocality": "Hayesville"' in text
+        assert '"streetAddress":"1516 US-64"' in text or '"streetAddress": "1516 US-64"' in text
+        assert '"addressLocality":"Hayesville"' in text or '"addressLocality": "Hayesville"' in text
         for fragment in forbidden_location_fragments:
             assert fragment not in text
 
@@ -156,7 +152,7 @@ def test_homepage_exposes_crawlable_core_and_service_area_links():
     ]
     for href in required:
         assert f'href="{href}"' in home
-    assert 'all appointments are completed at our Hayesville shop' in home.lower()
+    assert 'all appointments are completed at our hayesville shop' in home.lower()
 
 
 def test_404_is_noindex_and_not_a_fake_success_page():
