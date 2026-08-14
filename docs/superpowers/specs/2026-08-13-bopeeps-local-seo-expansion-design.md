@@ -21,7 +21,7 @@ The business does **not currently provide mobile detailing**.
 
 All local landing pages must make the service model clear: customers from surrounding communities bring their vehicles to the Hayesville shop. The site must never imply that BoPeeps has a physical storefront, staffed location, mobile-detailing unit, or guaranteed on-site service in Murphy, Hiawassee, Young Harris, or Blairsville.
 
-The business phone remains **706-897-6177**, public email remains **hello@bopeepsdetails.com**, and appointments continue through the existing Booksy profile.
+The business phone is **980-598-1864**, public email is **hello@bopeepsdetails.com**, and appointments continue through the existing Booksy profile.
 
 ## Target Search Areas
 
@@ -74,17 +74,17 @@ The hero, storefront imagery, service cards, trust strip, gallery, scrub interac
 
 ## Services Page
 
-`services.html` should provide a richer, crawlable explanation of the current Booksy services without replacing Booksy as the booking system.
+`services.html` should provide a richer, crawlable explanation of the current BoPeeps services without replacing Booksy as the booking system.
 
-It should include the verified current services:
+The website is the source of truth for service naming. The current services are:
 
-- Express Wash And Spray Wax — from $60+ — approximately 1 hour
-- Deluxe Detail Package — from $85+ — approximately 2 hours
-- Jacky Jones Premium Detail — from $150+ — approximately 4 hours
+- Vacuum, Hand Wash & Wax — from $60
+- Deluxe Detail Package — from $85
+- BoPeeps Signature Detail — from $150
 
 The page may expand service descriptions and clarify vehicle types served, but it must not invent unverified inclusions or alter pricing.
 
-Every service should have a clear Booksy booking CTA. The existing Pricing & Vehicle Condition disclosure and pet-hair fee policy must remain easy to reach.
+Every service should have a clear Booksy booking CTA. Booksy remains the appointment-booking destination and should be maintained to match the website service names. The existing Pricing & Vehicle Condition disclosure and pet-hair fee policy must remain easy to reach.
 
 ## Local Landing Page Template
 
@@ -201,7 +201,7 @@ Avoid overwhelming the main navigation. Local links can live in a compact servic
 
 Preserve and strengthen the existing Facebook connection. Ensure the public Facebook profile is linked from relevant site areas and referenced in structured data.
 
-Keep Booksy as the authoritative live booking destination.
+Keep Booksy as the live booking destination, while the website remains the source of truth for service names and descriptions.
 
 The site may display trust-oriented statements that are already supportable from current business information, but must not invent review ratings, review counts, certifications, guarantees, years in business, awards, or affiliations.
 
