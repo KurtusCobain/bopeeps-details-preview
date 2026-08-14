@@ -8,6 +8,11 @@ SHOP_ADDRESS = '1516 US-64, Hayesville, NC 28904'
 PHONE = '980-598-1864'
 PHONE_HREF = 'tel:+19805981864'
 CANONICAL_BASE = 'https://bopeepsdetails.com'
+FORMER_PHONE_PARTS = [
+    ('706', '897', '6177'),
+    ('850', '348', '5791'),
+]
+TEXT_SUFFIXES = {'.html', '.md', '.py', '.js', '.css', '.txt', '.xml'}
 
 INDEXABLE = [
     'index.html',
@@ -47,6 +52,27 @@ def extract(pattern: str, text: str) -> str:
     return re.sub(r'\s+', ' ', match.group(1)).strip()
 
 
+def former_phone_variants(parts: tuple[str, str, str]) -> set[str]:
+    area, prefix, line = parts
+    digits = f'{area}{prefix}{line}'
+    dashed = f'{area}-{prefix}-{line}'
+    return {
+        dashed,
+        digits,
+        f'+1{digits}',
+        f'+1-{dashed}',
+        f'tel:+1{digits}',
+    }
+
+
+def all_former_phone_variants() -> set[str]:
+    return {
+        variant
+        for parts in FORMER_PHONE_PARTS
+        for variant in former_phone_variants(parts)
+    }
+
+
 def test_required_routes_exist():
     for name in INDEXABLE + ['404.html', 'robots.txt', 'sitemap.xml', 'seo-pages.css']:
         assert (ROOT / name).exists(), name
@@ -75,15 +101,39 @@ def test_every_public_page_declares_the_favicon():
 
 
 def test_all_public_pages_use_current_phone_number():
-    for name in INDEXABLE + ['404.html']:
+    forbidden = all_former_phone_variants()
+    for name in PUBLIC_PAGES:
         text = html(name)
-        assert '706-897-6177' not in text, name
-        assert '+17068976177' not in text, name
-        assert '+1-706-897-6177' not in text, name
+        for variant in forbidden:
+            assert variant not in text, f'{name}: {variant}'
         assert PHONE_HREF in text, name
 
     for name in ['index.html', 'services.html'] + LOCAL_PAGES + ['privacy.html']:
         assert PHONE in html(name), name
+
+
+def test_repository_text_has_no_obsolete_phone_numbers():
+    forbidden = all_former_phone_variants()
+    for path in ROOT.rglob('*'):
+        if not path.is_file() or '.git' in path.parts or path.suffix.lower() not in TEXT_SUFFIXES:
+            continue
+        text = path.read_text(encoding='utf-8')
+        for variant in forbidden:
+            assert variant not in text, f'{path}: {variant}'
+
+
+def test_current_service_copy_uses_website_names():
+    home = html('index.html')
+    services = html('services.html')
+    local_pages = '\n'.join(html(name) for name in LOCAL_PAGES)
+
+    assert 'Current BoPeeps services' in home
+    assert 'Current Booksy services' not in home
+    assert "RV's" not in home
+    assert '<span>RVs</span>' in home
+    assert 'Book Basic' not in services
+    assert 'Book Wash &amp; Wax' in services
+    assert 'Basic, Deluxe, and Signature' not in local_pages
 
 
 def test_indexable_routes_have_unique_core_metadata_and_one_h1():
