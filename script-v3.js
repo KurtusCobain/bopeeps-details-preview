@@ -3,15 +3,18 @@
   const nav = document.querySelector('[data-site-nav]');
 
   if (menuButton && nav) {
-    const closeMenu = () => {
-      menuButton.setAttribute('aria-expanded', 'false');
-      nav.classList.remove('is-open');
+    const menuLabel = menuButton.querySelector('.sr-only');
+    const setMenuState = open => {
+      menuButton.setAttribute('aria-expanded', String(open));
+      nav.classList.toggle('is-open', open);
+      if (menuLabel) menuLabel.textContent = open ? 'Close menu' : 'Open menu';
     };
+
+    const closeMenu = () => setMenuState(false);
 
     menuButton.addEventListener('click', () => {
       const open = menuButton.getAttribute('aria-expanded') === 'true';
-      menuButton.setAttribute('aria-expanded', String(!open));
-      nav.classList.toggle('is-open', !open);
+      setMenuState(!open);
     });
 
     nav.addEventListener('click', event => {
