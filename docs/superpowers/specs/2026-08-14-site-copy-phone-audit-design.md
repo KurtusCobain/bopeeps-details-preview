@@ -12,9 +12,9 @@ Clean up indisputable wording inconsistencies across the BoPeeps website and pro
 ## Scope
 1. Fix clear grammar, punctuation, capitalization, and wording mistakes without changing service/package naming or pricing.
 2. Normalize obvious BoPeeps naming inconsistencies where they refer to the business itself.
-3. Search the full repository for obsolete phone numbers, including `706-897-6177`, `850-348-5791`, alternate formatting, and stale `tel:` links.
+3. Search the full repository for the former 706-area-code number, the former 850-area-code number, alternate formatting, and stale `tel:` links.
 4. Inventory every phone-number occurrence and classify it as current, obsolete, or historical/documentation-only.
-5. Re-run the searches after edits to prove obsolete live-site references are gone or document that none existed.
+5. Remove obsolete contact strings from the current repository and re-run the audit so historical documentation cannot reintroduce stale business facts.
 
 ## Out of scope
 - Renaming website services.
@@ -25,7 +25,7 @@ Clean up indisputable wording inconsistencies across the BoPeeps website and pro
 - Broad marketing-copy rewrites where the existing wording is subjective rather than incorrect.
 
 ## Verification
-- Compare the development branch against `main` and confirm only intended copy/documentation changes were made.
-- Search for all known old phone numbers and common numeric variants.
-- Search for all `tel:` links and confirm they use `tel:+19805981864`.
-- Check all edited HTML for valid surrounding markup and unchanged Booksy/service names.
+- Compare the development branch against `main` and confirm only intended copy/documentation/test changes were made.
+- Search for all known former phone-number families and common numeric variants without retaining the obsolete full numbers as repository literals.
+- Search for all `tel:` links and confirm live customer pages use `tel:+19805981864`.
+- Check all edited HTML for valid surrounding markup and unchanged website service names/prices.
