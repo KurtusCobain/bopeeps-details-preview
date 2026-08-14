@@ -1,0 +1,42 @@
+name: Apply release hardening
+
+on:
+  push:
+    branches:
+      - dev/site-cleanup-phone-audit
+    paths:
+      - 'scripts/apply_release_hardening.py'
+      - '.github/workflows/apply-release-hardening.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out development branch
+        uses: actions/checkout@v4
+        with:
+          ref: dev/site-cleanup-phone-audit
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Apply release hardening
+        run: python scripts/apply_release_hardening.py
+
+      - name: Commit hardened public pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html services.html policies.html privacy.html 404.html auto-detailing-*.html
+          if git diff --cached --quiet; then
+            echo "Public pages already hardened."
+          else
+            git commit -m "chore: harden public pages for release"
+            git push origin HEAD:dev/site-cleanup-phone-audit
+          fi
