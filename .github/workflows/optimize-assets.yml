@@ -1,0 +1,45 @@
+name: Optimize site images
+
+on:
+  push:
+    branches:
+      - dev/site-cleanup-phone-audit
+    paths:
+      - 'scripts/optimize_images.py'
+      - '.github/workflows/optimize-assets.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: dev/site-cleanup-phone-audit
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check pillow
+
+      - name: Generate optimized images
+        run: python scripts/optimize_images.py
+
+      - name: Commit optimized assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/logo-modern.webp assets-v3/*-optimized.webp
+          if git diff --cached --quiet; then
+            echo "Optimized assets already current."
+          else
+            git commit -m "perf: generate optimized site images"
+            git push origin HEAD:dev/site-cleanup-phone-audit
+          fi

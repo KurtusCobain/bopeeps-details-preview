@@ -3,15 +3,18 @@
   const nav = document.querySelector('[data-site-nav]');
 
   if (menuButton && nav) {
-    const closeMenu = () => {
-      menuButton.setAttribute('aria-expanded', 'false');
-      nav.classList.remove('is-open');
+    const menuLabel = menuButton.querySelector('.sr-only');
+    const setMenuState = open => {
+      menuButton.setAttribute('aria-expanded', String(open));
+      nav.classList.toggle('is-open', open);
+      if (menuLabel) menuLabel.textContent = open ? 'Close menu' : 'Open menu';
     };
+
+    const closeMenu = () => setMenuState(false);
 
     menuButton.addEventListener('click', () => {
       const open = menuButton.getAttribute('aria-expanded') === 'true';
-      menuButton.setAttribute('aria-expanded', String(!open));
-      nav.classList.toggle('is-open', !open);
+      setMenuState(!open);
     });
 
     nav.addEventListener('click', event => {
@@ -24,12 +27,58 @@
   }
 
   const widgetHost = document.querySelector('[data-booksy-widget-host]');
+  let booksyLoadPromise = null;
+
+  const findBooksyTrigger = () => widgetHost?.querySelector('.booksy-widget-button, button, a');
+
+  const loadBooksyWidget = () => {
+    if (!widgetHost) return Promise.resolve(false);
+    if (findBooksyTrigger()) return Promise.resolve(true);
+    if (booksyLoadPromise) return booksyLoadPromise;
+
+    const src = widgetHost.dataset.booksyWidgetSrc;
+    if (!src) return Promise.resolve(false);
+
+    booksyLoadPromise = new Promise(resolve => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = true;
+      script.addEventListener('load', () => {
+        window.setTimeout(() => resolve(Boolean(findBooksyTrigger())), 0);
+      }, { once: true });
+      script.addEventListener('error', () => resolve(false), { once: true });
+      widgetHost.appendChild(script);
+    });
+
+    return booksyLoadPromise;
+  };
+
   document.querySelectorAll('[data-booksy-open]').forEach(link => {
-    link.addEventListener('click', event => {
-      const trigger = widgetHost?.querySelector('.booksy-widget-button, button, a');
-      if (!trigger) return;
+    const warmBooksy = () => { void loadBooksyWidget(); };
+    link.addEventListener('pointerenter', warmBooksy, { once: true });
+    link.addEventListener('focus', warmBooksy, { once: true });
+
+    link.addEventListener('click', async event => {
+      const existingTrigger = findBooksyTrigger();
+      if (existingTrigger) {
+        event.preventDefault();
+        existingTrigger.click();
+        return;
+      }
+
+      if (!widgetHost?.dataset.booksyWidgetSrc) return;
+
       event.preventDefault();
-      trigger.click();
+      const fallbackUrl = link.href;
+      const loaded = await loadBooksyWidget();
+      const trigger = findBooksyTrigger();
+
+      if (loaded && trigger) {
+        trigger.click();
+        return;
+      }
+
+      window.location.href = fallbackUrl;
     });
   });
 

@@ -6,7 +6,7 @@ This repository contains the mobile-first static detailing website for BoPeeps D
 - Email: hello@bopeepsdetails.com
 - Booking: [Booksy](https://booksy.com/en-us/1808686_bopeeps-detail-more_other_26564_hayesville)
 - Hosting: GitHub Pages
-- Domain: bopeepsdetails.com after DNS cutover
+- Domain: bopeepsdetails.com
 
 ## Production files
 

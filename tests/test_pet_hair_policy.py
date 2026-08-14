@@ -33,10 +33,13 @@ def test_approved_disclosure_matches_on_home_and_policies_page():
     assert final_charge in policies
 
 
-def test_policy_page_explains_threshold_and_line_item():
+def test_policy_page_explains_threshold_line_item_and_scope():
     policies = POLICIES_PATH.read_text(encoding="utf-8")
-    assert "Policies & Service Information" in policies
-    assert "Pricing & Vehicle Condition" in policies
+    assert "Pricing & Vehicle Condition Policy" in policies
+    assert "Standard-condition pricing" in policies
     assert "A few stray hairs are not the intended threshold." in policies
     assert "$20 Excessive Pet Hair Removal" in policies
+    assert "Booksy handles appointment availability and the checkout workflow." in policies
+    assert "This page states only the BoPeeps pricing and vehicle-condition policy currently provided on this website." in policies
+    assert 'href="privacy.html"' in policies
     assert 'href="index.html"' in policies
