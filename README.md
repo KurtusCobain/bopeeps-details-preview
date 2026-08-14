@@ -2,7 +2,7 @@
 
 This repository contains the mobile-first static detailing website for BoPeeps Details & More in Hayesville, North Carolina.
 
-- Phone: 706-897-6177
+- Phone: 980-598-1864
 - Email: hello@bopeepsdetails.com
 - Booking: [Booksy](https://booksy.com/en-us/1808686_bopeeps-detail-more_other_26564_hayesville)
 - Hosting: GitHub Pages

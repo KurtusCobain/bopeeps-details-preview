@@ -5,7 +5,8 @@ import xml.etree.ElementTree as ET
 ROOT = Path('.')
 BOOKSY = 'https://booksy.com/en-us/1808686_bopeeps-detail-more_other_26564_hayesville'
 SHOP_ADDRESS = '1516 US-64, Hayesville, NC 28904'
-PHONE = '706-897-6177'
+PHONE = '980-598-1864'
+PHONE_HREF = 'tel:+19805981864'
 CANONICAL_BASE = 'https://bopeepsdetails.com'
 
 INDEXABLE = [
@@ -47,6 +48,18 @@ def extract(pattern: str, text: str) -> str:
 def test_required_routes_exist():
     for name in INDEXABLE + ['404.html', 'robots.txt', 'sitemap.xml', 'seo-pages.css']:
         assert (ROOT / name).exists(), name
+
+
+def test_all_public_pages_use_current_phone_number():
+    for name in INDEXABLE + ['404.html']:
+        text = html(name)
+        assert '706-897-6177' not in text, name
+        assert '+17068976177' not in text, name
+        assert '+1-706-897-6177' not in text, name
+        assert PHONE_HREF in text, name
+
+    for name in ['index.html', 'services.html'] + LOCAL_PAGES + ['privacy.html']:
+        assert PHONE in html(name), name
 
 
 def test_indexable_routes_have_unique_core_metadata_and_one_h1():
