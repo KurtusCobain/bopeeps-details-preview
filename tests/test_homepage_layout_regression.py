@@ -1,6 +1,7 @@
 from pathlib import Path
 import re
 
+# Guards the two homepage alignment defects reported during visual preview review.
 CSS = Path('styles-v3.css').read_text(encoding='utf-8')
 
 
