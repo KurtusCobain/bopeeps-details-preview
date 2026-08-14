@@ -21,6 +21,8 @@ INDEXABLE = [
     'privacy.html',
 ]
 
+PUBLIC_PAGES = INDEXABLE + ['404.html']
+
 LOCAL_PAGES = [
     'auto-detailing-hayesville-nc.html',
     'auto-detailing-murphy-nc.html',
@@ -48,6 +50,28 @@ def extract(pattern: str, text: str) -> str:
 def test_required_routes_exist():
     for name in INDEXABLE + ['404.html', 'robots.txt', 'sitemap.xml', 'seo-pages.css']:
         assert (ROOT / name).exists(), name
+
+
+def test_storefront_and_favicon_assets_exist():
+    for name in [
+        'assets-v3/hero-storefront-desktop.webp',
+        'assets-v3/hero-storefront-mobile.webp',
+        'favicon-48.png',
+        'apple-touch-icon.png',
+        'favicon.ico',
+    ]:
+        path = ROOT / name
+        assert path.exists(), name
+        assert path.stat().st_size > 0, name
+
+
+def test_every_public_page_declares_the_favicon():
+    icon_pattern = r'<link\s+rel="icon"\s+type="image/png"\s+sizes="48x48"\s+href="favicon-48\.png"\s*/?>'
+    apple_pattern = r'<link\s+rel="apple-touch-icon"\s+sizes="180x180"\s+href="apple-touch-icon\.png"\s*/?>'
+    for name in PUBLIC_PAGES:
+        text = html(name)
+        assert re.search(icon_pattern, text, flags=re.I), name
+        assert re.search(apple_pattern, text, flags=re.I), name
 
 
 def test_all_public_pages_use_current_phone_number():

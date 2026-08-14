@@ -73,11 +73,11 @@ Expected: failure because the favicon files and declarations do not exist yet.
 
 **Interfaces:**
 - Consumes: `C:\Users\katie\Downloads\Bopeeps\bopeeps_storefront_correct_phone.png` at 1684x934 pixels.
-- Produces: desktop WebP at 1684x934 and mobile WebP from crop box `(220, 0, 1220, 934)`.
+- Produces: desktop WebP at 1684x934 and mobile WebP from crop box `(240, 0, 1190, 934)`.
 
 - [ ] **Step 1: Generate the WebPs with bundled Pillow**
 
-Use the approved source image. Save the complete source as the desktop asset with WebP quality 86 and method 6. Crop the mobile source to `(220, 0, 1220, 934)` so the storefront sign, corrected phone number, and Jeep remain visible while the baked-in Booksy graphic is excluded; save it at WebP quality 86 and method 6.
+Use the approved source image. Save the complete source as the desktop asset with WebP quality 86 and method 6. Crop the mobile source to `(240, 0, 1190, 934)` so the storefront sign, complete corrected phone number, and Jeep remain visible at a 390px viewport while the baked-in Booksy graphic is excluded; save it at WebP quality 86 and method 6.
 
 - [ ] **Step 2: Verify formats and dimensions**
 
@@ -85,7 +85,7 @@ Open both generated files with Pillow and assert:
 
 ```python
 assert desktop.format == 'WEBP' and desktop.size == (1684, 934)
-assert mobile.format == 'WEBP' and mobile.size == (1000, 934)
+assert mobile.format == 'WEBP' and mobile.size == (950, 934)
 ```
 
 ### Task 3: Create and declare the favicon set
