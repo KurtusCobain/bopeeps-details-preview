@@ -1,12 +1,19 @@
 from pathlib import Path
+from html.parser import HTMLParser
+from urllib.parse import urlsplit
+import json
 import re
 import xml.etree.ElementTree as ET
 
 ROOT = Path('.')
 BOOKSY = 'https://booksy.com/en-us/1808686_bopeeps-detail-more_other_26564_hayesville'
+BOOKSY_WIDGET = 'https://booksy.com/widget/code.js?id=1808686&country=us&lang=en'
+FACEBOOK = 'https://www.facebook.com/people/BoPeeps-Detail/61591634832181/'
 SHOP_ADDRESS = '1516 US-64, Hayesville, NC 28904'
 PHONE = '980-598-1864'
 PHONE_HREF = 'tel:+19805981864'
+EMAIL = 'hello@bopeepsdetails.com'
+BUSINESS_NAME = 'BoPeeps Details & More'
 CANONICAL_BASE = 'https://bopeepsdetails.com'
 FORMER_PHONE_PARTS = [
     ('706', '897', '6177'),
@@ -36,20 +43,112 @@ LOCAL_PAGES = [
     'auto-detailing-blairsville-ga.html',
 ]
 
+SCHEMA_PAGES = ['index.html', 'services.html', *LOCAL_PAGES, 'policies.html']
+
 EXPECTED_CANONICALS = {
     'index.html': f'{CANONICAL_BASE}/',
     **{name: f'{CANONICAL_BASE}/{name}' for name in INDEXABLE if name != 'index.html'},
 }
 
 
+class AuditParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.ids = []
+        self.headings = []
+        self.links = []
+        self.images = []
+        self.asset_refs = []
+        self.meta_names = {}
+        self.meta_properties = {}
+        self.canonical = None
+        self._scrub_choice_depth = 0
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        classes = set(attrs.get('class', '').split())
+
+        if tag == 'button' and 'scrub-choice' in classes:
+            self._scrub_choice_depth += 1
+
+        if 'id' in attrs:
+            self.ids.append(attrs['id'])
+
+        if re.fullmatch(r'h[1-6]', tag):
+            self.headings.append(int(tag[1]))
+
+        if tag == 'a' and attrs.get('href'):
+            self.links.append(attrs['href'])
+
+        if tag == 'img':
+            self.images.append({
+                'attrs': attrs,
+                'decorative_scrub_thumbnail': self._scrub_choice_depth > 0,
+            })
+            if attrs.get('src'):
+                self.asset_refs.append(attrs['src'])
+            if attrs.get('srcset'):
+                self.asset_refs.extend(srcset_urls(attrs['srcset']))
+
+        if tag == 'source' and attrs.get('srcset'):
+            self.asset_refs.extend(srcset_urls(attrs['srcset']))
+
+        if tag == 'script' and attrs.get('src'):
+            self.asset_refs.append(attrs['src'])
+
+        if tag == 'link' and attrs.get('href'):
+            rel = set(attrs.get('rel', '').split())
+            if 'canonical' in rel:
+                self.canonical = attrs['href']
+            if rel & {'stylesheet', 'icon', 'apple-touch-icon'}:
+                self.asset_refs.append(attrs['href'])
+
+        if tag == 'meta' and attrs.get('content') is not None:
+            if attrs.get('name'):
+                self.meta_names[attrs['name'].lower()] = attrs['content']
+            if attrs.get('property'):
+                self.meta_properties[attrs['property'].lower()] = attrs['content']
+
+    def handle_endtag(self, tag):
+        if tag == 'button' and self._scrub_choice_depth:
+            self._scrub_choice_depth -= 1
+
+
 def html(name: str) -> str:
     return (ROOT / name).read_text(encoding='utf-8')
+
+
+def parse_page(name: str) -> AuditParser:
+    parser = AuditParser()
+    parser.feed(html(name))
+    return parser
 
 
 def extract(pattern: str, text: str) -> str:
     match = re.search(pattern, text, flags=re.I | re.S)
     assert match, f'missing pattern: {pattern}'
     return re.sub(r'\s+', ' ', match.group(1)).strip()
+
+
+def srcset_urls(value: str) -> list[str]:
+    urls = []
+    for item in value.split(','):
+        item = item.strip()
+        if item:
+            urls.append(item.split()[0])
+    return urls
+
+
+def local_path(url: str) -> Path | None:
+    if not url or url.startswith(('#', 'data:', 'mailto:', 'tel:', '//')):
+        return None
+    parts = urlsplit(url)
+    if parts.scheme or parts.netloc:
+        return None
+    path = parts.path.lstrip('/')
+    if not path:
+        return None
+    return ROOT / path
 
 
 def former_phone_variants(parts: tuple[str, str, str]) -> set[str]:
@@ -71,6 +170,15 @@ def all_former_phone_variants() -> set[str]:
         for parts in FORMER_PHONE_PARTS
         for variant in former_phone_variants(parts)
     }
+
+
+def json_ld_objects(name: str) -> list[dict]:
+    blocks = re.findall(
+        r'<script\s+type="application/ld\+json">(.*?)</script>',
+        html(name),
+        flags=re.I | re.S,
+    )
+    return [json.loads(block.strip()) for block in blocks]
 
 
 def test_required_routes_exist():
@@ -190,23 +298,158 @@ def test_local_pages_have_distinct_context_and_directions():
         assert destination in text, name
 
 
-def test_indexable_routes_have_unique_core_metadata_and_one_h1():
+def test_indexable_routes_have_unique_complete_metadata_and_one_h1():
     titles = []
     descriptions = []
+    og_titles = []
+    og_descriptions = []
     canonicals = []
+
     for name in INDEXABLE:
         text = html(name)
+        parser = parse_page(name)
         title = extract(r'<title>(.*?)</title>', text)
-        description = extract(r'<meta\s+name="description"\s+content="([^"]+)"', text)
-        canonical = extract(r'<link\s+rel="canonical"\s+href="([^"]+)"', text)
-        assert canonical == EXPECTED_CANONICALS[name]
-        assert len(re.findall(r'<h1(?:\s|>)', text, flags=re.I)) == 1, name
+        description = parser.meta_names.get('description', '').strip()
+        canonical = parser.canonical
+        og_title = parser.meta_properties.get('og:title', '').strip()
+        og_description = parser.meta_properties.get('og:description', '').strip()
+        og_url = parser.meta_properties.get('og:url', '').strip()
+
+        assert title, name
+        assert description, name
+        assert canonical == EXPECTED_CANONICALS[name], name
+        assert og_title == title, name
+        assert og_description, name
+        assert og_url == canonical, name
+        assert parser.headings.count(1) == 1, name
+
         titles.append(title)
         descriptions.append(description)
+        og_titles.append(og_title)
+        og_descriptions.append(og_description)
         canonicals.append(canonical)
+
     assert len(titles) == len(set(titles))
     assert len(descriptions) == len(set(descriptions))
+    assert len(og_titles) == len(set(og_titles))
+    assert len(og_descriptions) == len(set(og_descriptions))
     assert len(canonicals) == len(set(canonicals))
+
+
+def test_public_page_internal_links_and_fragments_resolve():
+    parsed = {name: parse_page(name) for name in PUBLIC_PAGES}
+
+    for source_name, parser in parsed.items():
+        for href in parser.links:
+            parts = urlsplit(href)
+            if parts.scheme or parts.netloc or href.startswith(('mailto:', 'tel:', '//')):
+                continue
+
+            target_name = parts.path or source_name
+            if parts.path:
+                target_path = ROOT / parts.path.lstrip('/')
+                assert target_path.exists(), f'{source_name}: {href}'
+                if target_path.suffix.lower() != '.html':
+                    continue
+            else:
+                target_path = ROOT / source_name
+
+            if parts.fragment:
+                target_parser = parsed.get(target_path.name)
+                if target_parser is None:
+                    target_parser = parse_page(target_path.name)
+                assert parts.fragment in target_parser.ids, f'{source_name}: {href}'
+
+
+def test_public_pages_have_unique_ids_and_valid_heading_progression():
+    for name in PUBLIC_PAGES:
+        parser = parse_page(name)
+        assert len(parser.ids) == len(set(parser.ids)), name
+
+        for previous, current in zip(parser.headings, parser.headings[1:]):
+            assert current <= previous + 1, f'{name}: h{previous} -> h{current}'
+
+
+def test_public_images_have_dimensions_alt_text_and_existing_local_assets():
+    for name in PUBLIC_PAGES:
+        parser = parse_page(name)
+
+        for image in parser.images:
+            attrs = image['attrs']
+            assert 'alt' in attrs, f'{name}: {attrs.get("src")}'
+            assert attrs.get('width', '').isdigit() and int(attrs['width']) > 0, f'{name}: {attrs.get("src")}'
+            assert attrs.get('height', '').isdigit() and int(attrs['height']) > 0, f'{name}: {attrs.get("src")}'
+            if attrs.get('alt') == '':
+                assert image['decorative_scrub_thumbnail'], f'{name}: {attrs.get("src")}'
+
+        for ref in parser.asset_refs:
+            path = local_path(ref)
+            if path is not None:
+                assert path.exists(), f'{name}: {ref}'
+
+
+def test_stylesheet_local_url_assets_exist():
+    for css_name in ['styles-v3.css', 'seo-pages.css']:
+        text = (ROOT / css_name).read_text(encoding='utf-8')
+        for ref in re.findall(r'url\(["\']?([^"\')]+)', text):
+            path = local_path(ref.strip())
+            if path is not None:
+                assert path.exists(), f'{css_name}: {ref}'
+
+
+def test_public_business_booking_and_social_references_are_consistent():
+    for name in PUBLIC_PAGES:
+        text = html(name)
+        parser = parse_page(name)
+
+        assert 'Jacky Jones' not in text, name
+        assert 'BoPeePs Details' not in text, name
+        assert 'Bopeeps Details & More' not in text, name
+
+        for href in parser.links:
+            if href.startswith('tel:'):
+                assert href == PHONE_HREF, f'{name}: {href}'
+            if href.startswith('mailto:'):
+                assert href == f'mailto:{EMAIL}', f'{name}: {href}'
+            if href.startswith('https://www.facebook.com/'):
+                assert href == FACEBOOK, f'{name}: {href}'
+            if href.startswith('https://booksy.com/'):
+                assert href == BOOKSY, f'{name}: {href}'
+
+        for ref in parser.asset_refs:
+            if ref.startswith('https://booksy.com/'):
+                assert ref == BOOKSY_WIDGET, f'{name}: {ref}'
+
+
+def test_local_business_schema_uses_one_current_business_entity():
+    expected_areas = {'Hayesville', 'Murphy', 'Hiawassee', 'Young Harris', 'Blairsville'}
+
+    for name in SCHEMA_PAGES:
+        objects = json_ld_objects(name)
+        matching = []
+        for obj in objects:
+            types = obj.get('@type', [])
+            if isinstance(types, str):
+                types = [types]
+            if {'AutomotiveBusiness', 'LocalBusiness'} & set(types):
+                matching.append(obj)
+
+        assert len(matching) == 1, name
+        entity = matching[0]
+        address = entity['address']
+        areas = {item['name'] for item in entity.get('areaServed', [])}
+
+        assert entity['name'] == BUSINESS_NAME, name
+        assert entity['url'] == f'{CANONICAL_BASE}/', name
+        assert entity['telephone'] == '+1-980-598-1864', name
+        assert entity['email'] == EMAIL, name
+        assert address['streetAddress'] == '1516 US-64', name
+        assert address['addressLocality'] == 'Hayesville', name
+        assert address['addressRegion'] == 'NC', name
+        assert address['postalCode'] == '28904', name
+        assert areas == expected_areas, name
+        assert entity.get('sameAs') == [FACEBOOK], name
+        assert entity['potentialAction']['target'] == BOOKSY, name
 
 
 def test_local_pages_are_truthful_about_one_hayesville_shop():
