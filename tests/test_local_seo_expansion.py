@@ -136,6 +136,60 @@ def test_current_service_copy_uses_website_names():
     assert 'Basic, Deluxe, and Signature' not in local_pages
 
 
+def test_homepage_conversion_section_order_and_proof_copy():
+    home = html('index.html')
+    markers = [
+        '<section class="hero" id="top">',
+        '<section class="trust-strip"',
+        '<section class="section services-section" id="services">',
+        '<div class="gallery-grid"',
+        'data-scrub-stage',
+        '<section class="section about-section" id="about">',
+        '<section class="section home-service-area"',
+        '<section class="section contact-section" id="contact">',
+    ]
+    positions = [home.index(marker) for marker in markers]
+    assert positions == sorted(positions)
+
+    for proof in ['Real Hayesville shop', 'Clear package pricing', 'Book online', 'Real local work']:
+        assert proof in home
+    for old_label in ['Quality products', 'Attention to detail', 'Reliable service', 'Customer first']:
+        assert old_label not in home
+
+
+def test_local_pages_have_distinct_context_and_directions():
+    requirements = {
+        'auto-detailing-hayesville-nc.html': {
+            'markers': ['Clay County', 'Lake Chatuge'],
+            'origin': 'origin=Hayesville%2C%20NC',
+        },
+        'auto-detailing-murphy-nc.html': {
+            'markers': ['Cherokee County', 'Appalachian'],
+            'origin': 'origin=Murphy%2C%20NC',
+        },
+        'auto-detailing-hiawassee-ga.html': {
+            'markers': ['Towns County', 'Lake Chatuge', 'PWCs'],
+            'origin': 'origin=Hiawassee%2C%20GA',
+        },
+        'auto-detailing-young-harris-ga.html': {
+            'markers': ['Towns County', 'Young Harris College'],
+            'origin': 'origin=Young%20Harris%2C%20GA',
+        },
+        'auto-detailing-blairsville-ga.html': {
+            'markers': ['Union County', 'north Georgia'],
+            'origin': 'origin=Blairsville%2C%20GA',
+        },
+    }
+    destination = 'destination=1516%20US-64%2C%20Hayesville%2C%20NC%2028904'
+    for name, expected in requirements.items():
+        text = html(name)
+        for marker in expected['markers']:
+            assert marker in text, f'{name}: {marker}'
+        assert 'https://www.google.com/maps/dir/?api=1' in text, name
+        assert expected['origin'] in text, name
+        assert destination in text, name
+
+
 def test_indexable_routes_have_unique_core_metadata_and_one_h1():
     titles = []
     descriptions = []
