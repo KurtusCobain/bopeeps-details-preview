@@ -49,6 +49,6 @@ def test_hero_is_eager_while_below_fold_work_images_are_lazy():
 
 def test_footer_logo_is_lazy_loaded():
     parser = parsed_home()
-    logos = [image for image in parser.images if image.get('src') == 'assets/logo-modern.jpg']
+    logos = [image for image in parser.images if image.get('src') == 'assets/logo-modern.webp']
     assert len(logos) >= 2
     assert logos[-1].get('loading') == 'lazy'
