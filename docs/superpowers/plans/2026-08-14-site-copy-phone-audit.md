@@ -4,9 +4,9 @@
 
 **Goal:** Correct objective copy errors across the BoPeeps site and verify that every website phone reference uses the current 980-598-1864 number.
 
-**Architecture:** Keep the existing static-site structure intact. Make only localized text edits in existing HTML/docs, preserve all website service names and prices, and use repository-wide searches as the verification layer for phone-number consistency.
+**Architecture:** Keep the existing static-site structure intact. Make only localized text edits in existing HTML/docs, preserve all website service names and prices, and use repository-wide checks as the verification layer for phone-number consistency.
 
-**Tech Stack:** Static HTML/CSS/JavaScript on GitHub Pages; GitHub repository content search and branch-based edits.
+**Tech Stack:** Static HTML/CSS/JavaScript on GitHub Pages; GitHub repository content inspection and branch-based edits.
 
 ## Global Constraints
 
@@ -24,7 +24,7 @@
 - Inspect all `.html`, `.md`, `.js`, and `.css` text-bearing files.
 - Modify only files containing objective copy errors.
 
-- [ ] Search for `RV's`, inconsistent BoPeeps spellings, obvious punctuation/grammar errors, stale wording, and accidental repeated phrases.
+- [ ] Search for the incorrect possessive plural of RV, inconsistent BoPeeps spellings, obvious punctuation/grammar errors, stale wording, and accidental repeated phrases.
 - [ ] Review each match in context and distinguish objective errors from intentional brand/service wording.
 - [ ] Apply minimal corrections without renaming services or changing prices.
 - [ ] Re-read changed sentences in context.
@@ -32,21 +32,21 @@
 ### Task 2: Phone-number and `tel:` audit
 
 **Files:**
-- Inspect the entire repository, including docs and metadata-bearing HTML.
+- Inspect the entire repository, including docs, tests, and metadata-bearing HTML.
 
-- [ ] Search for `706-897-6177`, `7068976177`, `850-348-5791`, `8503485791`, and common `+1` variants.
+- [ ] Search for both known former phone-number families, including dashed, digits-only, `+1`, and `tel:` variants, without preserving the obsolete full numbers as repository literals.
 - [ ] Search for every phone-like string and every `tel:` URI.
 - [ ] Classify matches as current, obsolete live-site, or historical documentation.
-- [ ] Replace obsolete live-site references with the current number if any exist.
+- [ ] Remove obsolete references from the current repository and replace customer-facing occurrences with the current number if any are found.
 - [ ] Confirm every live click-to-call link is exactly `tel:+19805981864`.
 
 ### Task 3: Verification
 
 **Files:**
-- No new production files expected.
+- Verify production pages, repository documentation, and regression tests.
 
-- [ ] Re-run old-number searches and confirm zero obsolete live-site matches.
-- [ ] Re-run `tel:` search and verify only the current number is used.
+- [ ] Re-run former-number checks and confirm zero obsolete current-tree matches.
+- [ ] Re-run `tel:` checks and verify live customer pages use only the current number.
 - [ ] Search service headings to confirm website package names were not changed.
-- [ ] Compare development branch changes against `main` and confirm scope is limited to copy/audit work.
+- [ ] Compare development branch changes against `main` and confirm scope is limited to copy, documentation, and audit-test work.
 - [ ] Record a concise audit result for review before any merge to `main`.
