@@ -14,7 +14,7 @@
 - BoPeeps has one physical shop: `1516 US-64, Hayesville, NC 28904`.
 - BoPeeps does not currently provide mobile detailing.
 - Approved service areas: Hayesville NC, Murphy NC, Hiawassee GA, Young Harris GA, Blairsville GA.
-- Phone remains `706-897-6177`; email remains `hello@bopeepsdetails.com`.
+- Phone is `980-598-1864`; email is `hello@bopeepsdetails.com`.
 - Booksy URL remains `https://booksy.com/en-us/1808686_bopeeps-detail-more_other_26564_hayesville`.
 - Existing homepage hero, storefront imagery, service cards, trust strip, gallery, scrub interaction, About, Contact, mobile quick actions, and Booksy behavior remain recognizable.
 - Do not change DNS, GitHub Pages settings, email routing, Booksy configuration, prices, or payment settings.
@@ -33,7 +33,7 @@
 
 - [ ] **Step 1:** Add tests requiring the nine indexable HTML routes: `index.html`, `services.html`, five city pages, `policies.html`, and `privacy.html`, plus `404.html`, `robots.txt`, and `sitemap.xml`.
 - [ ] **Step 2:** Require every indexable HTML route to contain a unique `<title>`, meta description, canonical `https://bopeepsdetails.com/...` URL, and exactly one `<h1` opening tag.
-- [ ] **Step 3:** Require every city page to contain `1516 US-64`, `706-897-6177`, `Hayesville`, and language stating that service is completed at the Hayesville shop; forbid `mobile detailing` as an offered service and forbid secondary street addresses.
+- [ ] **Step 3:** Require every city page to contain `1516 US-64`, `980-598-1864`, `Hayesville`, and language stating that service is completed at the Hayesville shop; forbid `mobile detailing` as an offered service and forbid secondary street addresses.
 - [ ] **Step 4:** Require `sitemap.xml` to contain exactly nine `<loc>` entries and exclude `404.html`, tests, docs, and dev URLs.
 - [ ] **Step 5:** Require `robots.txt` to advertise `https://bopeepsdetails.com/sitemap.xml`.
 - [ ] **Step 6:** Require the production Booksy URL and approved pet-hair policy wording to remain present.
@@ -59,10 +59,10 @@
 - Create: `privacy.html`
 
 **Interfaces:**
-- Consumes: `styles-v3.css`, `seo-pages.css`, logo/assets, current verified service names/prices/durations, Booksy URL, business NAP.
+- Consumes: `styles-v3.css`, `seo-pages.css`, logo/assets, current website service names/prices, Booksy URL, business NAP.
 - Produces: two indexable canonical routes with crawlable navigation.
 
-- [ ] **Step 1:** Build `services.html` with unique metadata/H1, the three verified Booksy services, vehicle types already stated on the homepage, Booksy CTAs, pet-hair disclosure, Hayesville shop statement, and local-area links.
+- [ ] **Step 1:** Build `services.html` with unique metadata/H1, the three current BoPeeps services, vehicle types already stated on the homepage, Booksy CTAs, pet-hair disclosure, Hayesville shop statement, and local-area links.
 - [ ] **Step 2:** Build `privacy.html` describing hosting request data and third-party Booksy, directions/Google Maps, and Facebook links without claiming analytics/cookies/payment storage that are not present.
 - [ ] **Step 3:** Add one-location JSON-LD to Services and appropriate business/navigation metadata to Privacy.
 
