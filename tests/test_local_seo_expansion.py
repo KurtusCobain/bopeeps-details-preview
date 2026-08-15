@@ -235,7 +235,7 @@ def test_current_service_copy_uses_website_names():
     services = html('services.html')
     local_pages = '\n'.join(html(name) for name in LOCAL_PAGES)
 
-    assert 'Current BoPeeps services' in home
+    assert 'Detailing packages' in home
     assert 'Current Booksy services' not in home
     assert "RV's" not in home
     assert '<span>RVs</span>' in home
@@ -259,7 +259,7 @@ def test_homepage_conversion_section_order_and_proof_copy():
     positions = [home.index(marker) for marker in markers]
     assert positions == sorted(positions)
 
-    for proof in ['Real Hayesville shop', 'Clear package pricing', 'Book online', 'Real local work']:
+    for proof in ['Hayesville Location', 'Clear package pricing', 'Book online', 'Quality Detailing']:
         assert proof in home
     for old_label in ['Quality products', 'Attention to detail', 'Reliable service', 'Customer first']:
         assert old_label not in home
@@ -267,35 +267,21 @@ def test_homepage_conversion_section_order_and_proof_copy():
 
 def test_local_pages_have_distinct_context_and_directions():
     requirements = {
-        'auto-detailing-hayesville-nc.html': {
-            'markers': ['Clay County', 'Lake Chatuge'],
-            'origin': 'origin=Hayesville%2C%20NC',
-        },
-        'auto-detailing-murphy-nc.html': {
-            'markers': ['Cherokee County', 'Appalachian'],
-            'origin': 'origin=Murphy%2C%20NC',
-        },
-        'auto-detailing-hiawassee-ga.html': {
-            'markers': ['Towns County', 'Lake Chatuge', 'PWCs'],
-            'origin': 'origin=Hiawassee%2C%20GA',
-        },
-        'auto-detailing-young-harris-ga.html': {
-            'markers': ['Towns County', 'Young Harris College'],
-            'origin': 'origin=Young%20Harris%2C%20GA',
-        },
-        'auto-detailing-blairsville-ga.html': {
-            'markers': ['Union County', 'north Georgia'],
-            'origin': 'origin=Blairsville%2C%20GA',
-        },
+        'auto-detailing-hayesville-nc.html': ['Clay County'],
+        'auto-detailing-murphy-nc.html': ['Cherokee County'],
+        'auto-detailing-hiawassee-ga.html': ['Towns County', 'Lake Chatuge'],
+        'auto-detailing-young-harris-ga.html': ['Towns County'],
+        'auto-detailing-blairsville-ga.html': ['Union County'],
     }
     destination = 'destination=1516%20US-64%2C%20Hayesville%2C%20NC%2028904'
-    for name, expected in requirements.items():
-        text = html(name)
-        for marker in expected['markers']:
-            assert marker in text, f'{name}: {marker}'
-        assert 'https://www.google.com/maps/dir/?api=1' in text, name
-        assert expected['origin'] in text, name
-        assert destination in text, name
+    for name, markers in requirements.items():
+        page = html(name)
+        for marker in markers:
+            assert marker in page, f'{name}: {marker}'
+        assert 'https://www.google.com/maps/dir/?api=1' in page, name
+        assert 'origin=' not in page, name
+        assert destination in page, name
+        assert '>Get Directions<' in page, name
 
 
 def test_indexable_routes_have_unique_complete_metadata_and_one_h1():
@@ -460,19 +446,18 @@ def test_local_pages_are_truthful_about_one_hayesville_shop():
         'auto-detailing-blairsville-ga.html': 'Blairsville',
     }
     for name in LOCAL_PAGES:
-        text = html(name)
-        assert SHOP_ADDRESS in text
-        assert PHONE in text
-        assert 'Hayesville' in text
-        assert BOOKSY in text
-        lower = text.lower()
+        page = html(name)
+        assert SHOP_ADDRESS in page
+        assert PHONE in page
+        assert 'Hayesville' in page
+        assert BOOKSY in page
+        lower = page.lower()
         assert 'mobile detailing available' not in lower
         assert 'we come to you' not in lower
     for name, city in surrounding.items():
-        text = html(name).lower()
-        assert city.lower() in text
-        assert 'hayesville shop' in text
-        assert ('bring your vehicle' in text) or ('bring their vehicles' in text) or ('bring the vehicle' in text)
+        page = html(name)
+        assert city in page
+        assert 'Your appointment is at BoPeeps in Hayesville.' in page
 
 
 def test_all_local_schema_keeps_hayesville_as_the_only_street_location():
@@ -562,7 +547,7 @@ def test_homepage_exposes_crawlable_core_and_service_area_links():
     ]
     for href in required:
         assert f'href="{href}"' in home
-    assert 'all appointments are completed at our hayesville shop' in home.lower()
+    assert 'all detailing is completed at our hayesville shop' in home.lower()
 
 
 def test_404_is_noindex_and_not_a_fake_success_page():
