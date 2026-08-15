@@ -2,6 +2,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
 
+# Guards customer-facing language and device-location directions after the copy audit.
 PUBLIC = [
     'index.html',
     'services.html',
