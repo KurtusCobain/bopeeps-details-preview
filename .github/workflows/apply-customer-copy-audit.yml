@@ -1,11 +1,10 @@
-name: Apply customer copy audit
+name: Apply customer copy polish
 
 on:
   push:
     branches:
       - dev/customer-copy-audit
     paths:
-      - 'scripts/apply_customer_copy_audit.py'
       - 'scripts/apply_customer_copy_final_polish.py'
       - '.github/workflows/apply-customer-copy-audit.yml'
   workflow_dispatch:
@@ -30,10 +29,7 @@ jobs:
       - name: Install test dependency
         run: python -m pip install --disable-pip-version-check pytest
 
-      - name: Apply customer copy audit
-        run: python scripts/apply_customer_copy_audit.py
-
-      - name: Apply final customer copy polish
+      - name: Apply current customer copy polish
         run: python scripts/apply_customer_copy_final_polish.py
 
       - name: Run full regression suite
@@ -46,10 +42,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html services.html policies.html privacy.html 404.html auto-detailing-*.html tests/test_local_seo_expansion.py tests/test_pet_hair_policy.py
+          git add index.html services.html policies.html privacy.html 404.html auto-detailing-*.html
           if git diff --cached --quiet; then
             echo "Customer copy is already up to date."
           else
-            git commit -m "copy: apply customer-facing language audit"
+            git commit -m "copy: apply customer-facing language de-duplication"
             git push origin HEAD:dev/customer-copy-audit
           fi
