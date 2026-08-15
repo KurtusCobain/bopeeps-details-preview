@@ -17,6 +17,7 @@ PUBLIC = [
 ]
 LOCAL = PUBLIC[2:7]
 DESTINATION = '1516 US-64, Hayesville, NC 28904'
+DIRECTIONS_HREF = 'https://www.google.com/maps/dir/?api=1&amp;destination=1516%20US-64%2C%20Hayesville%2C%20NC%2028904'
 
 
 class LinkParser(HTMLParser):
@@ -57,6 +58,7 @@ def test_customer_pages_do_not_use_defensive_or_internal_copy():
         'fixed drive-time',
         'this is the bopeeps physical shop',
         'does not claim to run',
+        'customers who make the drive from beyond',
     ]
     for name in PUBLIC:
         lower = text(name).lower()
@@ -95,6 +97,19 @@ def test_local_pages_use_device_location_directions():
             assert query.get('destination') == [DESTINATION], f'{name}: {href}'
 
 
+def test_mobile_direction_actions_use_device_location_on_every_public_page():
+    for name in PUBLIC:
+        page = text(name)
+        start = page.index('<nav class="mobile-actions"')
+        end = page.index('</nav>', start)
+        mobile_nav = page[start:end]
+        assert DIRECTIONS_HREF in mobile_nav, name
+        assert 'google.com/maps/search/' not in mobile_nav, name
+
+    home = text('index.html')
+    assert f'class="map-caption" href="{DIRECTIONS_HREF}"' in home
+
+
 def test_local_pages_keep_discovery_context_without_implying_branch_locations():
     required_context = {
         'auto-detailing-hayesville-nc.html': ['Clay County'],
@@ -120,4 +135,4 @@ def test_policy_and_privacy_use_plain_customer_language():
     for phrase in ['Standard pricing', 'When the pet-hair fee applies', 'At checkout']:
         assert phrase in policies, phrase
     assert 'does not claim to run' not in privacy.lower()
-    assert 'does not currently use a BoPeeps mailing-list signup' in privacy
+    assert 'BoPeeps does not currently use this website for mailing-list signups' in privacy
