@@ -2,7 +2,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
 
-# Final guards cover customer-facing tone, concise location copy, and current-device directions.
+# Final regression guards cover customer-facing tone, concise location copy, and current-device directions.
 PUBLIC = [
     'index.html',
     'services.html',
