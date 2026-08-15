@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - dev/site-cleanup-phone-audit
+      - dev/customer-copy-audit
       - main
   pull_request:
     branches:
