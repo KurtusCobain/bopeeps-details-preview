@@ -6,6 +6,7 @@ on:
       - dev/customer-copy-audit
     paths:
       - 'scripts/apply_customer_copy_audit.py'
+      - 'scripts/apply_customer_copy_final_polish.py'
       - '.github/workflows/apply-customer-copy-audit.yml'
   workflow_dispatch:
 
@@ -31,6 +32,9 @@ jobs:
 
       - name: Apply customer copy audit
         run: python scripts/apply_customer_copy_audit.py
+
+      - name: Apply final customer copy polish
+        run: python scripts/apply_customer_copy_final_polish.py
 
       - name: Run full regression suite
         run: pytest -q
