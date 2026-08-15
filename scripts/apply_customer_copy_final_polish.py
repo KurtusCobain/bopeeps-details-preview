@@ -239,7 +239,8 @@ LOCAL_COPY = {
 
 def patch_local_location_copy() -> None:
     old_banner = (
-        '<div class="seo-shop-banner"><strong>Your appointment is at BoPeeps in Hayesville.'</n        'strong> All detailing is completed at 1516 US-64, Hayesville, NC 28904.</div>'
+        '<div class="seo-shop-banner"><strong>Your appointment is at BoPeeps in Hayesville.</strong> '
+        'All detailing is completed at 1516 US-64, Hayesville, NC 28904.</div>'
     )
     new_banner = f'<div class="seo-shop-banner"><strong>{LOCATION_IDENTITY}</strong></div>'
     old_nearby = (
