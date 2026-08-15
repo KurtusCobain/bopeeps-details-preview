@@ -95,7 +95,27 @@ def test_homepage_uses_customer_first_trust_and_concise_location_copy():
         assert phrase in home, phrase
     assert 'BoPeeps welcomes drivers from western North Carolina, north Georgia, and beyond.' in home
     assert 'Find us at 1516 US-64 in Hayesville, NC.' in home
+    assert '<p class="eyebrow">Serving the region</p>' in home
+    assert 'Drop off your vehicle and talk with us directly if you have questions about the service you need.' in home
+    assert 'Come see us in Hayesville' not in home
+    assert 'Drop off at our Hayesville location' not in home
     assert 'Customers from anywhere are welcome to book' not in home
+
+
+def test_visible_location_context_is_not_repeated_before_address():
+    brand_eyebrow = '<p class="eyebrow">BoPeeps Details &amp; More</p>'
+    for name in ['services.html', 'privacy.html', *LOCAL]:
+        assert brand_eyebrow in text(name), name
+
+    expected_local_intros = {
+        'auto-detailing-hayesville-nc.html': 'Professional auto detailing for Hayesville, Clay County, and the Lake Chatuge area.',
+        'auto-detailing-murphy-nc.html': 'BoPeeps Details & More is a convenient option for Murphy and Cherokee County drivers.',
+        'auto-detailing-hiawassee-ga.html': 'BoPeeps Details & More is a convenient option for Hiawassee, Towns County, and the Lake Chatuge area.',
+        'auto-detailing-young-harris-ga.html': 'BoPeeps Details & More is a convenient option for Young Harris and Towns County drivers.',
+        'auto-detailing-blairsville-ga.html': 'BoPeeps Details & More is a convenient option for Blairsville and Union County drivers.',
+    }
+    for name, phrase in expected_local_intros.items():
+        assert phrase in text(name), f'{name}: {phrase}'
 
 
 def test_customer_pages_use_concise_location_identity():
