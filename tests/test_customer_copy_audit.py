@@ -2,7 +2,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
 
-# Final guards cover customer-facing tone and current-device directions on every public page.
+# Final guards cover customer-facing tone, concise location copy, and current-device directions.
 PUBLIC = [
     'index.html',
     'services.html',
@@ -18,6 +18,7 @@ PUBLIC = [
 LOCAL = PUBLIC[2:7]
 DESTINATION = '1516 US-64, Hayesville, NC 28904'
 DIRECTIONS_HREF = 'https://www.google.com/maps/dir/?api=1&amp;destination=1516%20US-64%2C%20Hayesville%2C%20NC%2028904'
+LOCATION_IDENTITY = 'BoPeeps Details &amp; More · 1516 US-64, Hayesville, NC 28904'
 
 
 class LinkParser(HTMLParser):
@@ -66,7 +67,21 @@ def test_customer_pages_do_not_use_defensive_or_internal_copy():
             assert phrase not in lower, f'{name}: {phrase}'
 
 
-def test_homepage_uses_customer_first_trust_and_service_area_copy():
+def test_customer_copy_does_not_repeat_location_reassurance():
+    banned = [
+        'customers from anywhere are welcome to book',
+        'customers are welcome from anywhere',
+        'all detailing is completed at',
+        'in-shop',
+    ]
+    for name in PUBLIC:
+        lower = text(name).lower()
+        for phrase in banned:
+            assert phrase not in lower, f'{name}: {phrase}'
+        assert lower.count('hayesville shop') <= 1, f'{name}: repeated Hayesville shop copy'
+
+
+def test_homepage_uses_customer_first_trust_and_concise_location_copy():
     home = text('index.html')
     for phrase in [
         'Hayesville Location',
@@ -78,8 +93,19 @@ def test_homepage_uses_customer_first_trust_and_service_area_copy():
         'Recent BoPeeps Work',
     ]:
         assert phrase in home, phrase
-    assert 'western North Carolina, north Georgia, and beyond' in home
-    assert 'Customers from anywhere are welcome to book' in home
+    assert 'BoPeeps welcomes drivers from western North Carolina, north Georgia, and beyond.' in home
+    assert 'Find us at 1516 US-64 in Hayesville, NC.' in home
+    assert 'Customers from anywhere are welcome to book' not in home
+
+
+def test_customer_pages_use_concise_location_identity():
+    for name in ['services.html', 'policies.html', *LOCAL]:
+        assert LOCATION_IDENTITY in text(name), name
+
+
+def test_footers_drop_in_shop_repetition():
+    for name in PUBLIC:
+        assert 'Professional in-shop auto detailing' not in text(name), name
 
 
 def test_local_pages_use_device_location_directions():
@@ -123,7 +149,7 @@ def test_local_pages_keep_discovery_context_without_implying_branch_locations():
         lower = page.lower()
         for marker in markers:
             assert marker in page, f'{name}: {marker}'
-        assert 'Hayesville shop' in page, name
+        assert LOCATION_IDENTITY in page, name
         assert 'mobile detailing available' not in lower, name
         assert 'we come to you' not in lower, name
 
