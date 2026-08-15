@@ -262,6 +262,24 @@ def patch_local_location_copy() -> None:
         write(name, page)
 
 
+def patch_stale_location_tests() -> None:
+    name = 'tests/test_local_seo_expansion.py'
+    tests = read(name)
+    tests = replace_required(
+        tests,
+        "assert 'Your appointment is at BoPeeps in Hayesville.' in page",
+        "assert 'BoPeeps Details &amp; More · 1516 US-64, Hayesville, NC 28904' in page",
+        'legacy local-page location assertion',
+    )
+    tests = replace_required(
+        tests,
+        "assert 'all detailing is completed at our hayesville shop' in home.lower()",
+        "assert 'Find us at 1516 US-64 in Hayesville, NC.' in home",
+        'legacy homepage location assertion',
+    )
+    write(name, tests)
+
+
 def main() -> None:
     patch_mobile_directions()
     patch_privacy_sentence()
@@ -271,6 +289,7 @@ def main() -> None:
     patch_services_location_copy()
     patch_policies_location_copy()
     patch_local_location_copy()
+    patch_stale_location_tests()
 
 
 if __name__ == '__main__':
