@@ -457,7 +457,7 @@ def test_local_pages_are_truthful_about_one_hayesville_shop():
     for name, city in surrounding.items():
         page = html(name)
         assert city in page
-        assert 'Your appointment is at BoPeeps in Hayesville.' in page
+        assert 'BoPeeps Details &amp; More · 1516 US-64, Hayesville, NC 28904' in page
 
 
 def test_all_local_schema_keeps_hayesville_as_the_only_street_location():
@@ -547,7 +547,7 @@ def test_homepage_exposes_crawlable_core_and_service_area_links():
     ]
     for href in required:
         assert f'href="{href}"' in home
-    assert 'all detailing is completed at our hayesville shop' in home.lower()
+    assert 'Find us at 1516 US-64 in Hayesville, NC.' in home
 
 
 def test_404_is_noindex_and_not_a_fake_success_page():
