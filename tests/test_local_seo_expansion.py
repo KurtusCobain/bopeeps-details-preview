@@ -200,8 +200,8 @@ def test_storefront_and_favicon_assets_exist():
 
 
 def test_every_public_page_declares_the_favicon():
-    icon_pattern = r'<link\s+rel="icon"\s+type="image/png"\s+sizes="48x48"\s+href="favicon-48\.png"\s*/?>'
-    apple_pattern = r'<link\s+rel="apple-touch-icon"\s+sizes="180x180"\s+href="apple-touch-icon\.png"\s*/?>'
+    icon_pattern = r'<link\s+rel="icon"\s+type="image/png"\s+sizes="48x48"\s+href="/?favicon-48\.png"\s*/?>'
+    apple_pattern = r'<link\s+rel="apple-touch-icon"\s+sizes="180x180"\s+href="/?apple-touch-icon\.png"\s*/?>'
     for name in PUBLIC_PAGES:
         text = html(name)
         assert re.search(icon_pattern, text, flags=re.I), name
