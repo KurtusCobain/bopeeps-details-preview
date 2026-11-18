@@ -45,7 +45,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .section-heading p:last-child { color: var(--muted); margin: 12px 0 0; }
 .button { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 18px; border: 1px solid transparent; border-radius: 9px; font-weight: 850; text-decoration: none; text-transform: uppercase; letter-spacing: .025em; font-size: .84rem; transition: transform .18s ease, background .18s ease, border-color .18s ease; }
 .button:active { transform: translateY(1px); }
-.button-primary { background: linear-gradient(180deg, #ef252c, #c90f16); color: white; box-shadow: 0 8px 24px rgba(227,27,35,.18); }
+.button-primary { background: linear-gradient(180deg, #d6141b, #c90f16); color: white; box-shadow: 0 8px 24px rgba(227,27,35,.18); }
+[data-booksy-open].is-loading { opacity: .65; pointer-events: none; }
 .button-primary:hover { background: #f1262e; }
 .button-ghost, .button-outline { border-color: rgba(255,255,255,.4); background: rgba(8,8,8,.55); color: white; }
 .button-ghost:hover, .button-outline:hover { border-color: var(--red); background: rgba(227,27,35,.08); }
@@ -100,9 +101,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .service-art-interior { --service-art: url("assets-v3/service-interior.webp"); }
 .service-art-premium { --service-art: url("assets-v3/service-premium.webp"); }
 .service-body { padding: 18px; }
-.service-topline { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.price { color: #ff353d; font-weight: 900; text-transform: uppercase; }
-.duration { color: #d4d4d6; font-size: .82rem; }
 .service-card h3 { margin: 10px 0 8px; font-size: 1.1rem; text-transform: uppercase; line-height: 1.15; }
 .service-card p { min-height: 4.4em; margin: 0 0 18px; color: var(--muted); }
 .service-prices { margin: 0 0 18px; border-top: 1px solid rgba(255,255,255,.12); }
@@ -112,7 +110,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .service-footer { margin-top: 16px; }
 .work-section { border-top: 1px solid rgba(227,27,35,.25); background: radial-gradient(circle at 50% 0%, rgba(227,27,35,.08), transparent 30%), #070707; }
 .work-grid { display: grid; gap: 18px; max-width: 960px; margin-inline: auto; }
-.reveal-card, .before-after-card { background: #0e0e10; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.reveal-card { background: #0e0e10; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
 .reveal-stage { position: relative; aspect-ratio: 16/10; overflow: hidden; background: #0b0b0b; touch-action: none; cursor: crosshair; }
 .reveal-stage img { width: 100%; height: 100%; object-fit: cover; }
 .reveal-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -132,15 +130,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .scrub-choice img { width: 100%; height: 108px; object-fit: cover; }
 .scrub-choice span { display: block; padding: 8px 9px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .75rem; font-weight: 800; text-transform: uppercase; }
 @keyframes shine { 0% { opacity: 0; transform: translateX(-130%); } 20% { opacity: 1; } 100% { opacity: 0; transform: translateX(130%); } }
-.before-after { position: relative; aspect-ratio: 4/5; overflow: hidden; background: #111; }
-.before-after img { width: 100%; height: 100%; object-fit: cover; }
-.after-layer { position: absolute; inset: 0; width: 52%; overflow: hidden; border-right: 2px solid #fff; }
-.after-layer img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: left center; }
-.ba-label { position: absolute; top: 12px; padding: 6px 9px; border-radius: 6px; background: rgba(5,5,5,.76); border: 1px solid rgba(255,255,255,.24); font-size: .72rem; text-transform: uppercase; font-weight: 850; }
-.ba-before { right: 12px; }
-.ba-after { left: 12px; }
-.comparison-control { display: grid; gap: 8px; padding: 14px 16px 18px; color: var(--muted); font-size: .78rem; text-transform: uppercase; font-weight: 800; }
-.comparison-control input { width: 100%; accent-color: var(--red); }
 .gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
 .gallery-grid figure { position: relative; min-width: 0; margin: 0; aspect-ratio: 4/3; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #111; }
 .gallery-grid img { width: 100%; height: 100%; object-fit: cover; }
@@ -192,7 +181,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .trust-grid article { border-bottom: 0; border-right: 1px solid var(--line); padding: 22px 16px; }
   .trust-grid article:last-child { border-right: 0; }
   .scrub-choices { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .before-after-card { display: grid; grid-template-rows: 1fr auto; }
   .gallery-grid { grid-template-columns: repeat(3,1fr); }
   .benefit-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .contact-layout { grid-template-columns: 1.1fr .9fr; align-items: center; }
@@ -233,3 +221,22 @@ button, a { -webkit-tap-highlight-color: transparent; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .shine { display: none; }
 }
+
+/* Pricing notice + home service area — moved from the inline <style> block in index.html (2026-11-18 fix branch). */
+.pricing-notice { display:grid; gap:12px; margin:22px auto 0; padding:16px; max-width:920px; border:1px solid rgba(227,27,35,.42); border-radius:14px; background:linear-gradient(135deg,rgba(227,27,35,.09),rgba(17,17,19,.94) 44%); text-align:left; }
+.pricing-notice-mark { display:grid; place-items:center; width:34px; height:34px; border:1px solid rgba(255,255,255,.22); border-radius:50%; color:#fff; background:#b80f16; font-weight:900; }
+.pricing-notice h3 { margin:0 0 5px; font-size:.94rem; text-transform:uppercase; letter-spacing:.03em; }
+.pricing-notice p { margin:0; color:#c8c8cc; font-size:.88rem; }
+.pricing-notice strong { color:#fff; }
+.pricing-notice-link { align-self:center; color:#fff; font-size:.8rem; font-weight:850; text-decoration:underline; text-underline-offset:4px; white-space:nowrap; }
+.pricing-notice-link:hover { color:#ff4a50; }
+.home-service-area { padding-top:0; }
+.home-service-area .seo-card { max-width:980px; margin:0 auto; text-align:center; }
+@media (min-width:768px) { .pricing-notice { grid-template-columns:auto minmax(0,1fr) auto; align-items:center; padding:16px 18px; } }
+
+/* Customer reviews (homepage) */
+.review-grid { max-width: 760px; }
+.review-card blockquote { margin: 0 0 12px; }
+.review-card blockquote p { margin: 0; color: #fff; font-size: 1.02rem; line-height: 1.5; }
+.review-card footer { color: var(--muted); font-size: .84rem; font-weight: 700; }
+@media (min-width: 700px) { .review-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

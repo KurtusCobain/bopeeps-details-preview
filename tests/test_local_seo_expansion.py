@@ -200,8 +200,8 @@ def test_storefront_and_favicon_assets_exist():
 
 
 def test_every_public_page_declares_the_favicon():
-    icon_pattern = r'<link\s+rel="icon"\s+type="image/png"\s+sizes="48x48"\s+href="favicon-48\.png"\s*/?>'
-    apple_pattern = r'<link\s+rel="apple-touch-icon"\s+sizes="180x180"\s+href="apple-touch-icon\.png"\s*/?>'
+    icon_pattern = r'<link\s+rel="icon"\s+type="image/png"\s+sizes="48x48"\s+href="/?favicon-48\.png"\s*/?>'
+    apple_pattern = r'<link\s+rel="apple-touch-icon"\s+sizes="180x180"\s+href="/?apple-touch-icon\.png"\s*/?>'
     for name in PUBLIC_PAGES:
         text = html(name)
         assert re.search(icon_pattern, text, flags=re.I), name
@@ -240,7 +240,7 @@ def test_current_service_copy_uses_website_names():
     assert "RV's" not in home
     assert '<span>RVs</span>' in home
     assert 'Book Basic' not in services
-    assert 'Book Wash &amp; Wax' in services
+    assert 'Book Express Wash' in services
     assert 'Basic, Deluxe, and Signature' not in local_pages
 
 
@@ -408,7 +408,7 @@ def test_public_business_booking_and_social_references_are_consistent():
 
 
 def test_local_business_schema_uses_one_current_business_entity():
-    expected_areas = {'Hayesville', 'Murphy', 'Hiawassee', 'Young Harris', 'Blairsville'}
+    expected_areas = {'Hayesville, NC', 'Murphy, NC', 'Hiawassee, GA', 'Young Harris, GA', 'Blairsville, GA'}
 
     for name in SCHEMA_PAGES:
         objects = json_ld_objects(name)
@@ -435,7 +435,7 @@ def test_local_business_schema_uses_one_current_business_entity():
         assert address['postalCode'] == '28904', name
         assert areas == expected_areas, name
         assert entity.get('sameAs') == [FACEBOOK], name
-        assert entity['potentialAction']['target'] == BOOKSY, name
+        assert entity['potentialAction']['target'] == {'@type': 'EntryPoint', 'urlTemplate': BOOKSY}, name
 
 
 def test_local_pages_are_truthful_about_one_hayesville_shop():
@@ -517,9 +517,9 @@ def test_public_pages_use_signature_service_name_and_current_vehicle_pricing():
     services = html('services.html')
     local_pages = '\n'.join(html(name) for name in LOCAL_PAGES)
 
-    assert 'BoPeeps Signature Detail' in home
-    assert 'BoPeeps Signature Detail' in services
-    assert 'BoPeeps Signature Detail' in local_pages
+    assert 'Premium Detail Package' in home
+    assert 'Premium Detail Package' in services
+    assert 'Premium Detail Package' in local_pages
 
     for text in [home, services]:
         for amount in ['$60', '$75', '$90', '$85', '$100', '$120', '$150', '$200', '$250']:

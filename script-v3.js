@@ -44,13 +44,56 @@
       script.src = src;
       script.async = true;
       script.addEventListener('load', () => {
-        window.setTimeout(() => resolve(Boolean(findBooksyTrigger())), 0);
+        void waitForTrigger().then(resolve);
       }, { once: true });
       script.addEventListener('error', () => resolve(false), { once: true });
       widgetHost.appendChild(script);
+    }).then(loaded => {
+      if (!loaded) booksyLoadPromise = null;
+      return loaded;
     });
 
     return booksyLoadPromise;
+  };
+
+  const waitForTrigger = (ms = 4000) => new Promise(resolve => {
+    if (findBooksyTrigger()) {
+      resolve(true);
+      return;
+    }
+    if (!widgetHost) {
+      resolve(false);
+      return;
+    }
+    const timeout = window.setTimeout(() => {
+      observer.disconnect();
+      resolve(false);
+    }, ms);
+    const observer = new MutationObserver(() => {
+      if (findBooksyTrigger()) {
+        window.clearTimeout(timeout);
+        observer.disconnect();
+        resolve(true);
+      }
+    });
+    observer.observe(widgetHost, { childList: true, subtree: true });
+  });
+
+  const setBookPending = (link, pending) => {
+    link.classList.toggle('is-loading', pending);
+    if (pending) {
+      link.setAttribute('aria-busy', 'true');
+      if (link.childNodes.length === 1 && link.firstChild.nodeType === Node.TEXT_NODE) {
+        link.dataset.bookLabel = link.firstChild.textContent;
+        link.firstChild.textContent = 'Loading…';
+      }
+    } else {
+      link.removeAttribute('aria-busy');
+      if (link.dataset.bookLabel && link.firstChild) {
+        link.firstChild.textContent = link.dataset.bookLabel;
+        delete link.dataset.bookLabel;
+      }
+    }
   };
 
   document.querySelectorAll('[data-booksy-open]').forEach(link => {
@@ -70,15 +113,18 @@
 
       event.preventDefault();
       const fallbackUrl = link.href;
+      setBookPending(link, true);
       const loaded = await loadBooksyWidget();
       const trigger = findBooksyTrigger();
+      setBookPending(link, false);
 
       if (loaded && trigger) {
         trigger.click();
         return;
       }
 
-      window.location.href = fallbackUrl;
+      const fallbackWindow = window.open(fallbackUrl, '_blank', 'noopener');
+      if (!fallbackWindow) window.location.href = fallbackUrl;
     });
   });
 
