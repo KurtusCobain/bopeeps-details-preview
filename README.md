@@ -14,7 +14,7 @@ This repository contains the mobile-first static detailing website for BoPeeps D
 - `styles-v3.css` contains the responsive black-and-red presentation and desktop/mobile hero art direction.
 - `script-v3.js` contains the mobile navigation, Booksy fallback handling, and interactive scrub behavior.
 - `.nojekyll` keeps the static file tree compatible with GitHub Pages.
-- `assets/logo-modern.jpg` is the header logo.
+- `assets/logo-modern.webp` is the header logo.
 - `assets-v3/` contains the optimized hero, service, scrub, and gallery images referenced by the production page.
 
 ## Image maintenance
@@ -30,6 +30,6 @@ Run the production reference checks after every image change so no local link po
 
 ## Production workflow
 
-Keep production changes on a review branch, verify the complete static site, and promote them to `main` without force-pushing. GitHub Pages serves the repository root.
+Keep production changes on a review branch, verify the complete static site, and promote them to `main` without force-pushing. GitHub Pages serves the `_site` directory, which `scripts/build_site.py` builds from an allowlist of public files (plus the `assets/` and `assets-v3/` directories).
 
 Experimental sponge cursors, bubbles, sounds, and other scrub effects belong on `experiment/scrub-effects`, not on production. The production scrub interaction should remain accessible to pointer and keyboard users.
