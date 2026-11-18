@@ -408,7 +408,7 @@ def test_public_business_booking_and_social_references_are_consistent():
 
 
 def test_local_business_schema_uses_one_current_business_entity():
-    expected_areas = {'Hayesville', 'Murphy', 'Hiawassee', 'Young Harris', 'Blairsville'}
+    expected_areas = {'Hayesville, NC', 'Murphy, NC', 'Hiawassee, GA', 'Young Harris, GA', 'Blairsville, GA'}
 
     for name in SCHEMA_PAGES:
         objects = json_ld_objects(name)
@@ -435,7 +435,7 @@ def test_local_business_schema_uses_one_current_business_entity():
         assert address['postalCode'] == '28904', name
         assert areas == expected_areas, name
         assert entity.get('sameAs') == [FACEBOOK], name
-        assert entity['potentialAction']['target'] == BOOKSY, name
+        assert entity['potentialAction']['target'] == {'@type': 'EntryPoint', 'urlTemplate': BOOKSY}, name
 
 
 def test_local_pages_are_truthful_about_one_hayesville_shop():
