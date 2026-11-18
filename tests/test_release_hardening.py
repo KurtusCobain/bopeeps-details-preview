@@ -88,8 +88,8 @@ def test_location_pages_do_not_expose_internal_seo_process_language():
 def test_indexable_pages_include_complete_social_image_metadata():
     required = [
         'property="og:image:alt"',
-        'property="og:image:width" content="1684"',
-        'property="og:image:height" content="934"',
+        'property="og:image:width" content="1200"',
+        'property="og:image:height" content="630"',
         'name="twitter:title"',
         'name="twitter:description"',
         'name="twitter:image"',
