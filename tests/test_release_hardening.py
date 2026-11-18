@@ -43,7 +43,7 @@ def schema(name: str) -> dict:
 def test_public_pages_use_new_javascript_cache_token_and_lazy_booksy_host():
     for name in PUBLIC:
         page = text(name)
-        assert 'script-v3.js?v=20260814a' in page, name
+        assert 'script-v3.js?v=20261118a' in page, name
         assert 'script-v3.js?v=20260808' not in page, name
         assert 'data-booksy-widget-src=' in page, name
         assert f'<script type="text/javascript" src="{BOOKSY_WIDGET}' not in page, name
