@@ -23,7 +23,10 @@ OPTIMIZED_ASSETS = [
     'assets-v3/jeep-wrangler-front-optimized.webp',
     'assets-v3/gmc-sierra-hd-optimized.webp',
     'assets-v3/ford-bronco-bay-optimized.webp',
-    'assets-v3/wagoneer-exterior-optimized.webp'
+    'assets-v3/wagoneer-exterior-optimized.webp',
+    'assets-v3/collage-work-trucks-optimized.webp',
+    'assets-v3/oldsmobile-wagon-optimized.webp',
+    'assets-v3/ram-1500-bay-optimized.webp'
 ]
 
 REMOVED_UNOPTIMIZED_DUPLICATES = [
