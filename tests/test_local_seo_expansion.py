@@ -240,7 +240,7 @@ def test_current_service_copy_uses_website_names():
     assert "RV's" not in home
     assert '<span>RVs</span>' in home
     assert 'Book Basic' not in services
-    assert 'Book Wash &amp; Wax' in services
+    assert 'Book Express Wash' in services
     assert 'Basic, Deluxe, and Signature' not in local_pages
 
 
@@ -517,9 +517,9 @@ def test_public_pages_use_signature_service_name_and_current_vehicle_pricing():
     services = html('services.html')
     local_pages = '\n'.join(html(name) for name in LOCAL_PAGES)
 
-    assert 'BoPeeps Signature Detail' in home
-    assert 'BoPeeps Signature Detail' in services
-    assert 'BoPeeps Signature Detail' in local_pages
+    assert 'Premium Detail Package' in home
+    assert 'Premium Detail Package' in services
+    assert 'Premium Detail Package' in local_pages
 
     for text in [home, services]:
         for amount in ['$60', '$75', '$90', '$85', '$100', '$120', '$150', '$200', '$250']:
