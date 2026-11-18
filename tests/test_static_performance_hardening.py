@@ -26,7 +26,7 @@ def parsed_home():
 
 def test_homepage_only_preloads_the_lcp_storefront_image():
     parser = parsed_home()
-    assert parser.preloads == ['assets-v3/hero-storefront-desktop.webp']
+    assert parser.preloads == ['assets-v3/hero-storefront-mobile.webp', 'assets-v3/hero-storefront-desktop.webp']
 
 
 def test_hero_is_eager_while_below_fold_work_images_are_lazy():
